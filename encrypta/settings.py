@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     # 'debug_toolbar',
     'tailwind',
     'theme',
+    'django_browser_reload',
 
     'vault',
 ]
@@ -64,6 +65,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
     # 'debug_toolbar.middleware.DebugToolbarMiddleware',
+    "django_browser_reload.middleware.BrowserReloadMiddleware",
 ]
 
 ROOT_URLCONF = 'encrypta.urls'

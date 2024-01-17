@@ -3,4 +3,7 @@ from django.shortcuts import render
 
 # Create your views here.
 def vault(request):
-    return render(request, "vault/base.html")
+    context = {
+        "title": "Главная",
+    }
+    return render(request, "vault/base.html", context)
