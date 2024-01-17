@@ -3,4 +3,4 @@ from django.shortcuts import render
 
 # Create your views here.
 def vault(request):
-    return HttpResponse("Hello World")
+    return render(request, "vault/base.html")

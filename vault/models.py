@@ -1,5 +1,4 @@
 from django.db import models
-from traitlets import default
 
 
 class Categories(models.Model):
