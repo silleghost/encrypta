@@ -1,5 +1,6 @@
 {% load static tailwind_tags %}
 {% load password_tags %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="ru">
 	<head>
@@ -33,7 +34,7 @@
 		<!-- Основная часть сайта -->
 		<div class="mt-1 container flex flex-col gap-1">
 			{% for record in records%}
-			<div class="flex gap-3 h-16 justify-start align-middle bg-gray-100 hover:bg-gray-200 hover:cursor-pointer border-solid border-2 border-slate-300 rounded-md">
+			<div class="flex gap-3 h-16 justify-start align-middle bg-gray-100 hover:bg-gray-200 border-solid border-2 border-slate-300 rounded-md">
 				{% if record.favicon %}
 					<img class="my-auto ml-2" src="{{record.favicon.url}}" width="32" "height=32" alt=""></img>
 				{% endif %}
@@ -43,8 +44,21 @@
 					</a>
 				</div>
 				<div class="my-auto">
-					<a href="#">
-						{% get_data_from_JSON_file dict=record.urls key='1' %}
+					<input type="hidden" value="{% get_password_for_record name=record.app_name %}">
+					<input class="w-32 peer rounded-[7px] !border !border-gray-300 border-t-transparent 
+					bg-transparent bg-white 
+					text-gray-700 
+					outline outline-0 ring-4 ring-transparent transition-all 
+					focus:border-2 focus:!border-blue-100" type="password" readonly value="123452">
+				</div>
+				<div class="my-auto w-[1.5rem] h-[1.5rem]">
+					<button>
+						<img src="{% static "deps/icons/copy-svgrepo-com.svg" %}"></img>
+					</button>
+				</div>
+				<div class="my-auto w-[1.5rem] h-[1.5rem]">
+					<a href="https://{% get_data_from_JSON_file dict=record.urls key='1' %}" target="_blank">
+						<img src="{% static "deps/icons/arrow-shape-turn-right-svgrepo-com.svg" %}"></img>
 					</a>
 				</div>
 			</div>	
