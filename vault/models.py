@@ -19,6 +19,7 @@ class Categories(models.Model):
 class Passwords(models.Model):
     username = models.CharField(max_length=150, null=True, verbose_name="Имя пользователя")
     password = models.CharField(max_length=300, null=True, verbose_name="Пароль")
+    is_main = models.BooleanField(default=False, verbose_name="Основной аккаунт")
 
     class Meta:
         db_table = "password"
@@ -31,7 +32,7 @@ class Passwords(models.Model):
 
 class Records(models.Model):
     app_name = models.CharField(max_length=150, verbose_name="Название приложения")
-    favicon = models.ImageField(upload_to="favicons", blank=True, null=True)
+    favicon = models.ImageField(upload_to="favicon_images", blank=True, null=True, verbose_name="Иконка приложения")
     urls = models.JSONField(default=dict, max_length=500, null=True, verbose_name="Адреса")
     records = models.ForeignKey(
         to=Passwords,
@@ -40,9 +41,9 @@ class Records(models.Model):
         verbose_name="Сохраненные пароли",
     )
     category = models.ForeignKey(
-        to=Categories, on_delete=models.SET_NULL, null=True, verbose_name="Категория"
+        to=Categories, on_delete=models.SET_NULL, blank=True, null=True, verbose_name="Категория"
     )
-    notes = models.TextField(null=True, verbose_name="Заметки")
+    notes = models.TextField(blank=True, null=True, verbose_name="Заметки")
     creation_date = models.DateTimeField(
         auto_now_add=True, null=True, verbose_name="Дата создания"
     )

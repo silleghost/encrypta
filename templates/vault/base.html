@@ -1,6 +1,7 @@
 {% load static tailwind_tags %}
+{% load password_tags %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 	<head>
     <title> {{title}} </title>
 		<meta charset="UTF-8">
@@ -29,12 +30,25 @@
 				</div>
 			</nav>
 		</div>
-
 		<!-- Основная часть сайта -->
-		{% for record in records%}
-			<div class="w-96 h-12 bg-gray-100 hover:bg-gray-200 hover:cursor-pointer border-solid border-2 border-slate-300 rounded-md">
-				<img src="{{record.favicon.url}}"></img>
-			</div>
-		{% endfor %}
+		<div class="mt-1 container flex flex-col gap-1">
+			{% for record in records%}
+			<div class="flex gap-3 h-16 justify-start align-middle bg-gray-100 hover:bg-gray-200 hover:cursor-pointer border-solid border-2 border-slate-300 rounded-md">
+				{% if record.favicon %}
+					<img class="my-auto ml-2" src="{{record.favicon.url}}" width="32" "height=32" alt=""></img>
+				{% endif %}
+				<div class="my-auto font-medium">
+					<a href="#">
+						{{record.app_name}}
+					</a>
+				</div>
+				<div class="my-auto">
+					<a href="#">
+						{% get_data_from_JSON_file dict=record.urls key='1' %}
+					</a>
+				</div>
+			</div>	
+			{% endfor %}
+		</div>
 	</body>
 </html>
