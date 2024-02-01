@@ -33,10 +33,11 @@ class Passwords(models.Model):
 class Records(models.Model):
     app_name = models.CharField(max_length=150, verbose_name="Название приложения")
     favicon = models.ImageField(upload_to="favicon_images", blank=True, null=True, verbose_name="Иконка приложения")
-    urls = models.JSONField(default=dict, max_length=500, null=True, verbose_name="Адреса")
+    urls = models.JSONField(default=dict, max_length=500, blank=True, null=True, verbose_name="Адреса")
     records = models.ForeignKey(
         to=Passwords,
         on_delete=models.SET_NULL,
+        blank=True,
         null=True,
         verbose_name="Сохраненные пароли",
     )

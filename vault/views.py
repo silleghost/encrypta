@@ -1,5 +1,7 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
+from django.urls import reverse
+from vault.forms import NewRecordForm
 
 from vault.models import Records
 
@@ -10,4 +12,11 @@ def vault(request):
         "title": "Главная",
         "records": records,
     }
-    return render(request, "vault/base.html", context)
+    return render(request, "vault/vault.html", context)
+
+
+def save_new_record(request):
+    if request.method == "POST":
+        form = NewRecordForm(data=request.POST)
+        form.save()
+        return HttpResponseRedirect(reverse("vault:vault"))

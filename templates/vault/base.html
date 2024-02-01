@@ -16,12 +16,12 @@
 
 	<body class="bg-gray-100">
 		<!--- Навигационная панель -->
-		<div class="container justify-between">
-			<nav class="px-0 py-2 flex flex-nowrap justify-start bg-slate-500">
-				<div class="pl-2 m-auto flex grow justify-start align-middle">
-					<div class="flex flex-grow align-middle">
+		<div class="container">
+			<nav class="px-0 py-2 flex flex-nowrap bg-slate-500">
+				<div class="pl-2 m-auto flex grow align-middle">
+					<div class="flex flex-grow justify-center align-middle">
 						<ul class="pl-0 ml-0 flex flex-row gap-5">
-							<li><a href="#" class="font-medium text-slate-50 hover:text-slate-200">Хранилище</a></li>
+							<li><a href="{% url "vault:vault" %}" class="font-medium text-slate-50 hover:text-slate-200">Хранилище</a></li>
 							<li><a href="#" class="font-medium text-slate-50 hover:text-slate-200">Инструменты</a></li>
 							<li><a href="#" class="font-medium text-slate-50 hover:text-slate-200">Заметки</a></li>
 							<li><a href="#" class="font-medium text-slate-50 hover:text-slate-200">Настройки</a></li>
@@ -32,37 +32,7 @@
 			</nav>
 		</div>
 		<!-- Основная часть сайта -->
-		<div class="mt-1 container flex flex-col gap-1">
-			{% for record in records%}
-			<div class="flex gap-3 h-16 justify-start align-middle bg-gray-100 hover:bg-gray-200 border-solid border-2 border-slate-300 rounded-md">
-				{% if record.favicon %}
-					<img class="my-auto ml-2" src="{{record.favicon.url}}" width="32" "height=32" alt=""></img>
-				{% endif %}
-				<div class="my-auto font-medium">
-					<a href="#">
-						{{record.app_name}}
-					</a>
-				</div>
-				<div class="my-auto">
-					<input type="hidden" value="{% get_password_for_record name=record.app_name %}">
-					<input class="w-32 peer rounded-[7px] !border !border-gray-300 border-t-transparent 
-					bg-transparent bg-white 
-					text-gray-700 
-					outline outline-0 ring-4 ring-transparent transition-all 
-					focus:border-2 focus:!border-blue-100" type="password" readonly value="123452">
-				</div>
-				<div class="my-auto w-[1.5rem] h-[1.5rem]">
-					<button>
-						<img src="{% static "deps/icons/copy-svgrepo-com.svg" %}"></img>
-					</button>
-				</div>
-				<div class="my-auto w-[1.5rem] h-[1.5rem]">
-					<a href="https://{% get_data_from_JSON_file dict=record.urls key='1' %}" target="_blank">
-						<img src="{% static "deps/icons/arrow-shape-turn-right-svgrepo-com.svg" %}"></img>
-					</a>
-				</div>
-			</div>	
-			{% endfor %}
-		</div>
+		{% block content %}
+		{% endblock content %}
 	</body>
 </html>

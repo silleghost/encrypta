@@ -1,4 +1,6 @@
 .vscode/
 .idea/
+media/
+static/
 db.sqlite3
 **/__pycache__
