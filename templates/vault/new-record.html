@@ -20,24 +20,14 @@
                 <!-- 1 Ряд -->
                 <div class="flex justify-between">
                     <div class="p-2 mb-[1rem]">
-                        <label for="id_appname">Название приложения</label>
-                        <input type="text" id="id_appname" name="appname" required 
-                        class="mt-1 block rounded-md w-[16rem] peer 
-                        !border !border-gray-300 border-t-transparent 
-                        bg-transparent bg-white 
-                        text-gray-700 
-                        outline outline-0 ring-4 ring-transparent transition-all 
-                        focus:border-2 focus:!border-blue-100"></input>
+                        <label for="id_app_name">Название приложения</label>
+                        <input type="text" id="id_app_name" name="app_name" required 
+                        class="form-field"></input>
                     </div>
                     <div class="p-2 mb-[1rem]">
                         <label for="id_category">Категория</label>
                         <select id="id_category" name="category" 
-                        class="mt-1 block rounded-md w-[16rem] peer 
-                        !border !border-gray-300 border-t-transparent 
-                        bg-transparent bg-white 
-                        text-gray-700 
-                        outline outline-0 ring-4 ring-transparent transition-all 
-                        focus:border-2 focus:!border-blue-100">
+                        class="form-field">
                         {% get_category_list as Categories %}
                         <option selected value="">
                         </option>
@@ -54,35 +44,20 @@
                     <div class="p-2 mb-[1rem]">
                         <label for="id_username">Имя пользователя</label>
                         <input type="text" id="id_username" name="username"  
-                        class="mt-1 block rounded-md w-[16rem] peer 
-                        !border !border-gray-300 border-t-transparent 
-                        bg-transparent bg-white 
-                        text-gray-700 
-                        outline outline-0 ring-4 ring-transparent transition-all 
-                        focus:border-2 focus:!border-blue-100"></input>
+                        class="form-field"></input>
                     </div>
                     <div class="p-2 mb-[1rem]">
                         <label for="id_password">Пароль</label>
                         <input type="password" id="id_password" name="password"  
-                        class="mt-1 block rounded-md w-[16rem] peer 
-                        !border !border-gray-300 border-t-transparent 
-                        bg-transparent bg-white 
-                        text-gray-700 
-                        outline outline-0 ring-4 ring-transparent transition-all 
-                        focus:border-2 focus:!border-blue-100"></input>
+                        class="form-field"></input>
                     </div>
                 </div>
                  <!-- 3 Ряд -->
                 <div class="flex justify-between">
                     <div class="p-2 mb-[1rem]">
-                        <label for="id_mainurl">URL-адрес</label>
-                        <input type="text" id="id_mainurl" name="mainurl"  
-                        class="mt-1 block rounded-md w-[16rem] peer 
-                        !border !border-gray-300 border-t-transparent 
-                        bg-transparent bg-white 
-                        text-gray-700 
-                        outline outline-0 ring-4 ring-transparent transition-all 
-                        focus:border-2 focus:!border-blue-100"></input>
+                        <label for="id_url">URL-адрес</label>
+                        <input type="text" id="id_url" name="url"  
+                        class="form-field"></input>
                     </div>
 
                 </div>

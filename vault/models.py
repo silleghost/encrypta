@@ -16,35 +16,27 @@ class Categories(models.Model):
         return self.name
 
 
-class Passwords(models.Model):
-    username = models.CharField(max_length=150, null=True, verbose_name="Имя пользователя")
-    password = models.CharField(max_length=300, null=True, verbose_name="Пароль")
-    is_main = models.BooleanField(default=False, verbose_name="Основной аккаунт")
-
-    class Meta:
-        db_table = "password"
-        verbose_name = "Пароль"
-        verbose_name_plural = "Пароли"
-
-    def __str__(self):
-        return self.username
-
-
 class Records(models.Model):
     app_name = models.CharField(max_length=150, verbose_name="Название приложения")
-    favicon = models.ImageField(upload_to="favicon_images", blank=True, null=True, verbose_name="Иконка приложения")
-    urls = models.JSONField(default=dict, max_length=500, blank=True, null=True, verbose_name="Адреса")
-    records = models.ForeignKey(
-        to=Passwords,
+    username = models.CharField(
+        max_length=150, null=True, verbose_name="Имя пользователя"
+    )
+    password = models.CharField(max_length=300, null=True, verbose_name="Пароль")
+    favicon = models.ImageField(
+        upload_to="favicon_images",
+        blank=True,
+        null=True,
+        verbose_name="Иконка приложения",
+    )
+    url = models.CharField(max_length=500, blank=True, null=True, verbose_name="Адрес")
+    category = models.ForeignKey(
+        to=Categories,
         on_delete=models.SET_NULL,
         blank=True,
         null=True,
-        verbose_name="Сохраненные пароли",
+        verbose_name="Категория",
     )
-    category = models.ForeignKey(
-        to=Categories, on_delete=models.SET_NULL, blank=True, null=True, verbose_name="Категория"
-    )
-    notes = models.TextField(blank=True, null=True, verbose_name="Заметки")
+    # notes = models.TextField(blank=True, null=True, verbose_name="Заметки")
     creation_date = models.DateTimeField(
         auto_now_add=True, null=True, verbose_name="Дата создания"
     )

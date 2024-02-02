@@ -14,10 +14,7 @@ def get_data_from_JSON_file(dict, key):
 @register.simple_tag
 def get_password_for_record(name):
     target_app = Records.objects.get(app_name=name)
-    target_record = target_app.records
-    if target_record:
-        return target_record.password
-    return
+    return target_app.password
 
 @register.simple_tag
 def get_category_list():

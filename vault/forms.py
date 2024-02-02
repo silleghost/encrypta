@@ -2,7 +2,7 @@ from unicodedata import category
 from django import forms
 
 
-from vault.models import Passwords, Records
+from vault.models import Records, Categories
 
 
 class NewRecordForm(forms.ModelForm):
@@ -10,18 +10,14 @@ class NewRecordForm(forms.ModelForm):
         model = Records
         fields = (
             "app_name",
-            "favicon",
-            "urls",
-            "records",
-            "category",
-            "notes",
+            "username",
+            "password",
+            "url",
         )
 
     app_name = forms.CharField()
-    favicon=forms.ImageField()
-    urls=forms.JSONField()
-    records=forms.CharField()
-    category=forms.CharField()
-    notes=forms.Textarea()
+    username = forms.CharField()
+    password = forms.CharField()
+    url = forms.CharField()
 
 

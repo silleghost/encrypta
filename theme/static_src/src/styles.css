@@ -8,3 +8,9 @@
         font-family: 'Fira Sans', sans-serif;
     }
 }
+
+@layer components {
+    .form-field {
+        @apply mt-1 block rounded-md w-[16rem] !border !border-gray-300 border-t-transparent bg-transparent bg-white text-gray-700 outline outline-0 ring-4 ring-transparent transition-all focus:border-2 focus:!border-blue-100
+    }
+}
