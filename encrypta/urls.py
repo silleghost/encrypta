@@ -26,6 +26,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path('', RedirectView.as_view(url='/vault/', permanent=False)),
     path("vault/", include("vault.urls", namespace="vault")),
+    path("user/", include("users.urls", namespace="users")),
     path("__reload__/", include("django_browser_reload.urls")),
 ]
 
