@@ -17,6 +17,9 @@
                     {% if form.username.value %} value={{form.username.value}} {% endif %}
                     required>
                     </input>
+                    <div class="pt-1 block text-pink-500">
+                        {% if form.username.errors %}{{form.username.errors}}{% endif %}
+                    </div>
                 </div>
                 <div class="mb-3 block ">
                     <label class="font-normal" for="id_email">
@@ -26,6 +29,9 @@
                     {% if form.email.value %} value={{form.email.value}} {% endif %}
                     required>
                     </input>
+                    <div class="pt-1 block text-pink-500">
+                        {% if form.email.errors %}{{form.email.errors}}{% endif %}
+                    </div>
                 </div>
                 <div class="mb-3 block ">
                     <label class="font-normal" for="id_password1">
@@ -33,6 +39,9 @@
                     </label>
                     <input id="id_password1" name="password1" class="form-field" type="password" required>
                     </input>
+                    <div class="pt-1 block text-pink-500">
+                        {% if form.password1.errors %}{{form.password1.errors}}{% endif %}
+                    </div>
                 </div>
                 <div class="mb-8 block ">
                     <label class="font-normal" for="id_password2">
@@ -40,6 +49,9 @@
                     </label>
                     <input id="id_password2" name="password2" class="form-field" type="password" required>
                     </input>
+                    <div class="pt-1 block text-pink-500">
+                        {% if form.password2.errors %}{{form.password2.errors}}{% endif %}
+                    </div>
                 </div>
                 <button type="submit" class="px-2 py-1 w-full border-2 bg-slate-500 border-transparent rounded-md hover:bg-slate-600">
                     <span class="font-medium text-white">Регистрация</span>
