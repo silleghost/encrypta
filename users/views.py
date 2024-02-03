@@ -6,14 +6,6 @@ from django.urls import reverse
 
 from users.forms import UserLoginForm, UserRegistrationForm
 
-from django.contrib.auth.decorators import login_required
-from django.contrib import auth, messages
-from django.http import HttpResponseRedirect
-from django.shortcuts import redirect, render
-from django.urls import reverse
-
-from users.forms import UserLoginForm, UserRegistrationForm
-
 
 def login(request):
     if request.method == "POST":

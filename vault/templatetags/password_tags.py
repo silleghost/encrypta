@@ -12,10 +12,11 @@ def get_data_from_JSON_file(dict, key):
 
 
 @register.simple_tag
-def get_password_for_record(name):
-    target_app = Records.objects.get(app_name=name)
+def get_password_for_record(name, user):
+    target_app = Records.objects.filter(user=user).get(app_name=name)
     return target_app.password
 
+
 @register.simple_tag
-def get_category_list():
-    return Categories.objects.all()
+def get_category_list_for_current_user(user):
+    return Categories.objects.filter(user=user)

@@ -16,8 +16,8 @@ class NewRecordForm(forms.ModelForm):
         )
 
     app_name = forms.CharField()
-    username = forms.CharField()
-    password = forms.CharField()
-    url = forms.CharField()
+    username = forms.CharField(required=False)
+    password = forms.CharField(required=False)
+    url = forms.CharField(required=False)
 
 

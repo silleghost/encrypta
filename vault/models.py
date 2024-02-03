@@ -1,9 +1,14 @@
 from django.db import models
 
+from users.models import User
+
 
 class Categories(models.Model):
     name = models.CharField(
-        max_length=150, unique=True, verbose_name="Название категории"
+        max_length=150, verbose_name="Название категории"
+    )
+    user = models.ForeignKey(
+        to=User, on_delete=models.CASCADE, verbose_name="Пользователь"
     )
 
     class Meta:
@@ -35,6 +40,9 @@ class Records(models.Model):
         blank=True,
         null=True,
         verbose_name="Категория",
+    )
+    user = models.ForeignKey(
+        to=User, on_delete=models.CASCADE, verbose_name="Пользователь"
     )
     # notes = models.TextField(blank=True, null=True, verbose_name="Заметки")
     creation_date = models.DateTimeField(

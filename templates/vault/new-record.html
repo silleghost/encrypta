@@ -28,7 +28,7 @@
                         <label for="id_category">Категория</label>
                         <select id="id_category" name="category" 
                         class="form-field">
-                        {% get_category_list as Categories %}
+                        {% get_category_list_for_current_user user=user as Categories %}
                         <option selected value="">
                         </option>
                         {% for category in Categories %}

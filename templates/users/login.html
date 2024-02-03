@@ -1,2 +1,39 @@
 {% extends "base.html" %}
 {% load static %}
+{% block content %}
+<div class="fixed w-screen h-screen bg-slate bg-opacity-10">
+    <form action="{% url "users:login" %}" method="post" class="mx-auto max-w-[1024px] w-full container">
+        {% csrf_token %}
+        <div class="p-[2rem] mt-5 mx-auto flex flex-col justify-center items-center max-w-[32rem]">
+            <div class="p-[1.5rem] bg-white border-gray-200 border-1 rounded-md">
+                <div class="font-medium mb-3 text-3xl flex justify-center">
+                    Вход
+                </div>
+                <div class="mb-3 block ">
+                    <label class="font-normal" for="id_username">
+                        Имя пользователя
+                    </label>
+                    <input id="id_username" name="username" class="form-field" type="text" required>
+                    </input>
+                </div>
+                <div class="mb-3 block ">
+                    <label class="font-normal" for="id_password">
+                        Пароль
+                    </label>
+                    <input id="id_password" name="password" class="form-field" type="password" required>
+                    </input>
+                </div>
+                <div class="mb-8 block">
+                    <a href="{% url "users:registration" %}" class="text-sky-400 hover:text-sky-500 hover:underline">
+                        Регистрация
+                    </a>
+                </div>
+                <button type="submit" class="px-2 py-1 w-full border-2 bg-slate-500 border-transparent rounded-md hover:bg-slate-600">
+                    <span class="font-medium text-white">Войти</span>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock content %}
+
