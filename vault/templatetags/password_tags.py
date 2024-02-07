@@ -12,8 +12,8 @@ def get_data_from_JSON_file(dict, key):
 
 
 @register.simple_tag
-def get_password_for_record(name, user):
-    target_app = Records.objects.filter(user=user).get(app_name=name)
+def get_password_for_record(id, user):
+    target_app = Records.objects.filter(user=user).get(id=id)
     return target_app.password
 
 

@@ -1,8 +1,7 @@
-from ast import Pass
 from asyncio.windows_events import NULL
-from unicodedata import category
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
+from django.template.loader import render_to_string
 from django.urls import reverse
 from vault.forms import NewRecordForm
 from django.contrib.auth.decorators import login_required
@@ -31,6 +30,21 @@ def save_new_record(request):
         post.save()
 
         return HttpResponseRedirect(reverse("vault:vault"))
+    
+@login_required
+def get_record_form(request):
+    record_id = request.POST.get("record_id")
+    record = Records.objects.get(id=record_id)
+
+    change_form_html = render_to_string(
+        "vault/change-record-form.html", {"record" : record}, request=request
+    )
+
+    response_data = {
+        "change_form_html" : change_form_html,
+    }
+
+    return JsonResponse(response_data)
 
 
     

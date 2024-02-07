@@ -901,6 +901,10 @@ body {
   height: 1.5rem;
 }
 
+.h-\[2rem\] {
+  height: 2rem;
+}
+
 .h-\[32px\] {
   height: 32px;
 }
@@ -927,6 +931,10 @@ body {
 
 .w-\[1\.5rem\] {
   width: 1.5rem;
+}
+
+.w-\[2rem\] {
+  width: 2rem;
 }
 
 .w-\[32px\] {
@@ -1250,9 +1258,23 @@ body {
   transition-duration: 300ms;
 }
 
+.hover\:border-2:hover {
+  border-width: 2px;
+}
+
+.hover\:border-gray-400:hover {
+  --tw-border-opacity: 1;
+  border-color: rgb(156 163 175 / var(--tw-border-opacity));
+}
+
 .hover\:bg-gray-200:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(229 231 235 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-gray-300:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(209 213 219 / var(--tw-bg-opacity));
 }
 
 .hover\:bg-slate-400:hover {

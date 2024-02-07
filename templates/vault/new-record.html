@@ -1,13 +1,13 @@
 {% load static %}
 {% load password_tags %}
 
-<div onclick="closeDialog()" id="modal-new-record" class="fixed left-0 top-0 bg-black bg-opacity-10 w-screen h-screen justify-center items-center opacity-0 hidden transition-opacity duration-300">
+<div onclick="closeDialog('modal-new-record')" id="modal-new-record" class="fixed left-0 top-0 bg-black bg-opacity-10 w-screen h-screen justify-center items-center opacity-0 hidden transition-opacity duration-300">
     <!-- Содержание модального окна -->
     <div onclick="event.stopImmediatePropagation()" class="bg-white rounded shadow-md p-1 w-[40rem] flex-col flex-none">
         <!-- Заголовок модального окна -->
         <div class="w-full flex flex-start justify-between px-7 py-4 border-b-2 border-gray-300">
             <h1 class="text-lg">Новый элемент</h1>
-            <button onclick="closeDialog()">
+            <button onclick="closeDialog('modal-new-record')">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
                   </svg>                          
