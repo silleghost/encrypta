@@ -1,5 +1,4 @@
-from asyncio.windows_events import NULL
-from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.template.loader import render_to_string
 from django.urls import reverse
@@ -8,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 
 from vault.models import Categories, Records
 
-# Create your views here.
+
 @login_required
 def vault(request):
     records = Records.objects.filter(user=request.user)
@@ -22,20 +21,37 @@ def vault(request):
 @login_required
 def save_record(request):
     if request.method == "POST":
-        if request.POST.get("id"):
-            record = Records.objects.filter(user=request.user).get(id=request.POST.get("id"))
-            record.app_name = request.POST.get("app_name")
-            record.username = request.POST.get("username")
-            record.password = request.POST.get("password")
-            record.url = request.POST.get("url")
-            record.save()
-        else:
-            form = NewRecordForm(data=request.POST)
-            post = form.save(commit=False)
-            post.user = request.user
-            if request.POST["category"]:
-                post.category = Categories.objects.filter(user=request.user).get(name=request.POST["category"])
-            post.save()
+        # if request.POST.get("id"):
+        #     record = Records.objects.filter(user=request.user).get(id=request.POST.get("id"))
+        #     record.app_name = request.POST.get("app_name")
+        #     record.username = request.POST.get("username")
+        #     record.password = request.POST.get("password")
+        #     record.url = request.POST.get("url")
+        #     record.save()
+        # else:
+        #     form = NewRecordForm(data=request.POST)
+        #     post = form.save(commit=False)
+        #     post.user = request.user
+        #     if request.POST["category"]:
+        #         post.category = Categories.objects.filter(user=request.user).get(name=request.POST["category"])
+        #     post.save()
+
+        category, created = Categories.objects.get_or_create(
+            user=request.user,
+            name=request.POST.get("category"),
+        )
+
+        record, created = Records.objects.update_or_create(
+            id=request.POST.get("id"),
+            user=request.user,
+            defaults={
+                "app_name" : request.POST.get("app_name"),
+                "username" : request.POST.get("username"),
+                "password" : request.POST.get("password"),
+                "url" : request.POST.get("url"),
+                "category": category,
+            },
+        )
 
         return HttpResponseRedirect(reverse("vault:vault"))
     
