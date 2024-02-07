@@ -54,5 +54,12 @@ def get_record_form(request):
 
     return JsonResponse(response_data)
 
+@login_required
+def delete_record(request):
+    if request.method == "POST":
+        record = Records.objects.filter(user=request.user).get(id=request.POST.get("id"))
+        record.delete()
+    return HttpResponseRedirect(reverse("vault:vault"))
+
 
     
