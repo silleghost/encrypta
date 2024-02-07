@@ -1,10 +1,10 @@
 {% load static %}
 {% load password_tags %}
 <div id="edit-record-form">
-
-    <form action="" method="post">
-    <div class="flex flex-col px-7 py-4 h-[30 rem]">
-        {% csrf_token %}      
+    <form action="{% url "vault:save" %}" method="post">
+        <div class="flex flex-col px-7 py-4 h-[30 rem]">
+            {% csrf_token %}    
+            <input type="hidden" value="{{record.id}}" name="id"></input>  
             <!-- 1 Ряд -->
             <div class="flex justify-between">
                 <div class="p-2 mb-[1rem]">
@@ -14,20 +14,20 @@
                 </div>
                 <div class="p-2 mb-[1rem]">
                     <label for="id_category">Категория</label>
-                    <select id="id_category" name="category" 
+                    <select id="id_category" name="category"
                     class="form-field">
                     {% get_category_list_for_current_user user=user as Categories %}
-                    <option selected value="{{record.category.name}}">
-                    </option>
+                    {% comment %} <option selected value="{{record.category.name}}">
+                    </option> {% endcomment %}
                     {% for category in Categories %}
                         <option value={{category.name}}>
                             {{category.name}}
                         </option>
                     {% endfor %}
-                </select>
+                    </select>
                 </div>
             </div>
-             <!-- 2 Ряд -->
+            <!-- 2 Ряд -->
             <div class="flex justify-between">
                 <div class="p-2 mb-[1rem]">
                     <label for="id_username">Имя пользователя</label>
@@ -40,14 +40,20 @@
                     class="form-field"></input>
                 </div>
             </div>
-             <!-- 3 Ряд -->
+            <!-- 3 Ряд -->
             <div class="flex justify-between">
                 <div class="p-2 mb-[1rem]">
                     <label for="id_url">URL-адрес</label>
                     <input type="text" id="id_url" name="url" value="{{record.url}}" 
                     class="form-field"></input>
                 </div>
-
             </div>
-    </div>
+        </div>
+        <!-- Футер модального окна -->
+        <div class="w-full flex flex-start justify-between px-7 py-4 border-t-2 border-gray-300">
+            <button type="submit" class="px-2 py-1 border-2 bg-slate-500 border-transparent rounded-md hover:bg-slate-600">
+                <span class="font-medium text-white">Сохранить</span>
+            </button>
+        </div>
+    </form>
 </div>

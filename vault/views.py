@@ -20,14 +20,22 @@ def vault(request):
 
 
 @login_required
-def save_new_record(request):
+def save_record(request):
     if request.method == "POST":
-        form = NewRecordForm(data=request.POST)
-        post = form.save(commit=False)
-        post.user = request.user
-        if request.POST["category"]:
-            post.category = Categories.objects.filter(user=request.user).get(name=request.POST["category"])
-        post.save()
+        if request.POST.get("id"):
+            record = Records.objects.filter(user=request.user).get(id=request.POST.get("id"))
+            record.app_name = request.POST.get("app_name")
+            record.username = request.POST.get("username")
+            record.password = request.POST.get("password")
+            record.url = request.POST.get("url")
+            record.save()
+        else:
+            form = NewRecordForm(data=request.POST)
+            post = form.save(commit=False)
+            post.user = request.user
+            if request.POST["category"]:
+                post.category = Categories.objects.filter(user=request.user).get(name=request.POST["category"])
+            post.save()
 
         return HttpResponseRedirect(reverse("vault:vault"))
     
