@@ -4,7 +4,8 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.urls import reverse
 
-from users.forms import UserLoginForm, UserRegistrationForm
+from users.forms import UserLoginForm, UserRegistrationForm, UserProfileForm
+from users.models import User
 
 
 def login(request):
@@ -48,9 +49,35 @@ def registration(request):
     return render(request, "users/registration.html", context)
 
 
+@login_required
+def profile(request):
+    if request.method == "POST":
+        form = UserProfileForm(
+            data=request.POST, instance=request.user
+        )
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse("users:profile"))
+    else:
+        form = UserProfileForm(instance=request.user)
+
+    context = {
+        "title": "Профиль",
+        "form": form,
+    }
+    return render(request, "users/profile.html", context)
+
+
 
 @login_required
 def logout(request):
     messages.success(request, f"{request.user.username}, Вы вышли из аккаунта")
     auth.logout(request)
     return redirect(reverse("vault:vault"))
+
+
+@login_required
+def delete(request):
+    user = User.objects.get(id=request.user.id)
+    user.delete()
+    return HttpResponseRedirect(reverse("vault:vault"))

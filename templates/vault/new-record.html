@@ -13,62 +13,6 @@
                   </svg>                          
             </button>
         </div>
-        <!-- Тело модального окна -->
-        <form action="{% url "vault:save" %}" method="post">
-            {% csrf_token %}
-        <div class="flex flex-col px-7 py-4 h-[30 rem]">      
-                <!-- 1 Ряд -->
-                <div class="flex justify-between">
-                    <div class="p-2 mb-[1rem]">
-                        <label for="id_app_name">Название приложения</label>
-                        <input type="text" id="id_app_name" name="app_name" required 
-                        class="form-field"></input>
-                    </div>
-                    <div class="p-2 mb-[1rem]">
-                        <label for="id_category">Категория</label>
-                        <select id="id_category" name="category" 
-                        class="form-field">
-                        {% get_category_list_for_current_user user=user as Categories %}
-                        <option selected value="">
-                        </option>
-                        {% for category in Categories %}
-                            <option value={{category.name}}>
-                                {{category.name}}
-                            </option>
-                        {% endfor %}
-                    </select>
-                    </div>
-                </div>
-                 <!-- 2 Ряд -->
-                <div class="flex justify-between">
-                    <div class="p-2 mb-[1rem]">
-                        <label for="id_username">Имя пользователя</label>
-                        <input type="text" id="id_username" name="username"  
-                        class="form-field"></input>
-                    </div>
-                    <div class="p-2 mb-[1rem]">
-                        <label for="id_password">Пароль</label>
-                        <input type="password" id="id_password" name="password"  
-                        class="form-field"></input>
-                    </div>
-                </div>
-                 <!-- 3 Ряд -->
-                <div class="flex justify-between">
-                    <div class="p-2 mb-[1rem]">
-                        <label for="id_url">URL-адрес</label>
-                        <input type="text" id="id_url" name="url"  
-                        class="form-field"></input>
-                    </div>
-
-                </div>
-
-        </div>
-        <!-- Футер модального окна -->
-        <div class="w-full flex flex-start justify-between px-7 py-4 border-t-2 border-gray-300">
-            <button type="submit" class="px-2 py-1 border-2 bg-slate-500 border-transparent rounded-md hover:bg-slate-600">
-                <span class="font-medium text-white">Сохранить</span>
-            </button>
-        </div>
-        </form>
+        {% include "vault/edit-record-form.html" %}
     </div>
 </div>

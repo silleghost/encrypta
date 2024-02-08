@@ -7,7 +7,7 @@
         <div class="p-[2rem] mt-5 mx-auto flex flex-col justify-center items-center max-w-[32rem]">
             <div class="p-[1.5rem] bg-white border-gray-200 border-1 rounded-md">
                 <div class="font-medium mb-3 text-3xl flex justify-center">
-                    Регистрация
+                    {{title}}
                 </div>
                 <div class="mb-3 block ">
                     <label class="font-normal" for="id_username">
@@ -43,7 +43,7 @@
                         {% if form.password1.errors %}{{form.password1.errors}}{% endif %}
                     </div>
                 </div>
-                <div class="mb-8 block ">
+                <div class="mb-3 block ">
                     <label class="font-normal" for="id_password2">
                         Подтвердите пароль
                     </label>
@@ -51,6 +51,11 @@
                     </input>
                     <div class="pt-1 block text-pink-500">
                         {% if form.password2.errors %}{{form.password2.errors}}{% endif %}
+                    </div>
+                    <div class="mb-8 block">
+                        <a href="{% url "users:login" %}" class="text-sky-400 hover:text-sky-500 hover:underline">
+                            Войти
+                        </a>
                     </div>
                 </div>
                 <button type="submit" class="px-2 py-1 w-full border-2 bg-slate-500 border-transparent rounded-md hover:bg-slate-600">

@@ -1,3 +1,4 @@
+from unicodedata import category
 from django.db import models
 
 from users.models import User
@@ -18,7 +19,7 @@ class Categories(models.Model):
         ordering = ("name",)
 
     def __str__(self):
-        return self.name
+        return f'{self.name} | {self.user.username}'
 
 
 class Records(models.Model):
@@ -58,4 +59,4 @@ class Records(models.Model):
         verbose_name_plural = "Записи"
 
     def __str__(self):
-        return self.app_name
+        return f'{self.category.name if self.category else "Без категории"} | {self.app_name} | {self.user.username}'

@@ -10,9 +10,8 @@
 <div class="mt-1 container flex justify-center">
     <div class="flex flex-col gap-1 w-1/2">
         {% for record in records%}
-        {% include "vault/change-record.html" %}
-        <div 
-        class="flex gap-3 h-16 justify-start align-middle bg-gray-100 hover:bg-gray-200 border-solid border-2 border-slate-300 rounded-md">        
+        <div class="flex gap-3 h-16 justify-start align-middle bg-gray-100 hover:bg-gray-200 border-solid border-2 border-slate-300 rounded-md">        
+            
             <!-- Иконка приложения -->
 
             {% if record.favicon %}
@@ -32,8 +31,8 @@
                 </a>
             </div>
 
-
             <!-- Поле с паролем -->
+
             {% get_password_for_record id=record.id user=request.user as password_value%}
             {% if password_value %}
                 <div class="my-auto">
@@ -61,6 +60,7 @@
             {% endif %}
 
              <!-- Кнопка копирования пароля -->
+
             {% if password_value %}
                 <div class="my-auto w-[1.5rem] h-[1.5rem]">
                     <button>
@@ -72,6 +72,7 @@
             {% endif %}
 
              <!-- Кнопка перехода -->
+             
             {% if record.url %}
                 <div class="my-auto w-[1.5rem] h-[1.5rem]">
                     <a href="https://{{record.url}}" target="_blank">
@@ -97,7 +98,7 @@
             </div>  
         </button>
 
-        <!-- Модальное окно создания новой записи -->
+        <!-- Модальное окно создания записи -->
 
         {% include "vault/new-record.html" %}
         {% include "vault/change-record.html" %}
