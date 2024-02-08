@@ -17,7 +17,6 @@ def login(request):
             user = auth.authenticate(username=username, password=password)
             if user:
                 auth.login(request, user)
-                messages.success(request, f"{username}, Вы вошли в аккаунт")
                 if request.POST.get("next", None):
                     return HttpResponseRedirect(request.POST.get("next"))
                 return HttpResponseRedirect(reverse("vault:vault"))
@@ -52,9 +51,7 @@ def registration(request):
 @login_required
 def profile(request):
     if request.method == "POST":
-        form = UserProfileForm(
-            data=request.POST, instance=request.user
-        )
+        form = UserProfileForm(data=request.POST, instance=request.user)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect(reverse("users:profile"))
@@ -66,7 +63,6 @@ def profile(request):
         "form": form,
     }
     return render(request, "users/profile.html", context)
-
 
 
 @login_required

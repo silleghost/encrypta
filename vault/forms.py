@@ -21,3 +21,9 @@ class NewRecordForm(forms.ModelForm):
     url = forms.CharField(required=False)
 
 
+class NewCategoryForm(forms.ModelForm):
+    class Meta:
+        model = Categories
+        fields = ("name",)
+
+        name = forms.CharField()

@@ -6,7 +6,7 @@ from users.models import User
 
 class Categories(models.Model):
     name = models.CharField(
-        max_length=150, verbose_name="Название категории"
+        unique=True, max_length=150, verbose_name="Название категории"
     )
     user = models.ForeignKey(
         to=User, on_delete=models.CASCADE, verbose_name="Пользователь"
@@ -19,7 +19,7 @@ class Categories(models.Model):
         ordering = ("name",)
 
     def __str__(self):
-        return f'{self.name} | {self.user.username}'
+        return f"{self.name} | {self.user.username}"
 
 
 class Records(models.Model):
@@ -45,7 +45,6 @@ class Records(models.Model):
     user = models.ForeignKey(
         to=User, on_delete=models.CASCADE, verbose_name="Пользователь"
     )
-    # notes = models.TextField(blank=True, null=True, verbose_name="Заметки")
     creation_date = models.DateTimeField(
         auto_now_add=True, null=True, verbose_name="Дата создания"
     )
@@ -59,4 +58,4 @@ class Records(models.Model):
         verbose_name_plural = "Записи"
 
     def __str__(self):
-        return f'{self.category.name if self.category else "Без категории"} | {self.app_name} | {self.user.username}'
+        return f'{self.user.username} | {self.category.name if self.category else "Без категории"} | {self.app_name}'

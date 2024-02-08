@@ -5,6 +5,7 @@ from vault.models import Categories, Records
 
 register = template.Library()
 
+
 @register.simple_tag
 def get_data_from_JSON_file(dict, key):
     if dict:
