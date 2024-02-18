@@ -5,10 +5,12 @@ from django.forms import ValidationError
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.urls import reverse
+from django.contrib.auth.hashers import make_password
 
 from users.forms import UserLoginForm, UserRegistrationForm, UserSettingsForm
 from users.models import User, UserSettings
-from users.utils import get_or_create_user_settings
+from users.utils import get_or_create_user_settings, check_password
+
 
 
 def login(request):
@@ -17,12 +19,28 @@ def login(request):
         if form.is_valid():
             username = request.POST["username"]
             password = request.POST["password"]
-            user = auth.authenticate(username=username, password=password)
+            # user = auth.authenticate(username=username, password=password)
+            try:
+                user = User.objects.get(username=username)
+            except User.DoesNotExist:
+                user = None
             if user:
-                auth.login(request, user)
-                if request.POST.get("next", None):
-                    return HttpResponseRedirect(request.POST.get("next"))
-                return HttpResponseRedirect(reverse("vault:vault"))
+                settings = get_or_create_user_settings(user)
+
+                correct_password, must_update = check_password(
+                    password=password,
+                    encoded=user.password,
+                    hasher=settings.preferred_hash_algorithm,
+                )
+                if must_update:
+                    user.password = make_password(password=password, salt=user.email, hasher=settings.preferred_hash_algorithm)
+                    user.save()
+
+                if correct_password:
+                    auth.login(request, user)
+                    if request.POST.get("next", None):
+                        return HttpResponseRedirect(request.POST.get("next"))
+                    return HttpResponseRedirect(reverse("vault:vault"))
     else:
         form = UserLoginForm()
 
@@ -63,18 +81,22 @@ def settings(request):
                     user.email = form.cleaned_data["email"]
                     user.save()
                     settings = get_or_create_user_settings(user=user)
-                    settings.preferred_hash_algorithm=form.cleaned_data["hash_algorithm"]
+                    settings.preferred_hash_algorithm = form.cleaned_data[
+                        "hash_algorithm"
+                    ]
                     settings.save()
             except ValidationError:
                 return redirect("user:settings")
 
     else:
         settings = get_or_create_user_settings(user=request.user)
-        form = UserSettingsForm(initial={
-            "username": request.user.username,
-            "email": request.user.email,
-            "settings": settings,
-        })
+        form = UserSettingsForm(
+            initial={
+                "username": request.user.username,
+                "email": request.user.email,
+                "settings": settings,
+            }
+        )
 
     context = {
         "title": "Профиль",

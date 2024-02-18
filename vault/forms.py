@@ -30,7 +30,7 @@ class NewCategoryForm(forms.ModelForm):
 
     def clean_name(self):
         data= self.cleaned_data["name"]
-        if Categories.objects.get(name=data):
+        if Categories.objects.filter(name=data).exists():
             raise forms.ValidationError("Такая категория уже существует", code="unique")
         
         return data

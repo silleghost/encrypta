@@ -20,7 +20,8 @@ def vault(request):
     }
     return render(request, "vault/vault.html", context)
 
-#TODO переделать функцию
+
+# TODO переделать функцию
 @login_required
 def save_record(request):
     """
@@ -92,7 +93,10 @@ def new_category(request):
             post = form.save(commit=False)
             post.user = request.user
             post.save()
-        
+        else:
+            #TODO Здесь необходимо вернуть перерисованную форму с сообщением об ошибке
+            ...
+
     else:
         form = NewCategoryForm()
 

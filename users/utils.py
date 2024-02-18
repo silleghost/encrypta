@@ -1,4 +1,5 @@
 from users.models import User, UserSettings
+from django.contrib.auth.hashers import get_hasher, identify_hasher
 
 
 def get_or_create_user_settings(user, **kwargs):
@@ -18,3 +19,23 @@ def get_or_create_user_settings(user, **kwargs):
         )
 
     return user_settings
+
+
+def update_password():
+    ...
+
+def check_password(password, encoded, hasher):
+    if password is None:
+        return False, False
+    
+    preferred_hasher = get_hasher(hasher)
+    try:
+        used_hasher = identify_hasher(encoded)
+    except ValueError:
+        return False, False
+    
+    hasher_changed = preferred_hasher != used_hasher
+    is_correct = used_hasher.verify(password, encoded)
+
+    return is_correct, hasher_changed
+    
