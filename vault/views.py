@@ -21,7 +21,7 @@ def vault(request):
     return render(request, "vault/vault.html", context)
 
 
-# TODO переделать функцию
+# TODO переделать функцию, используя кастомную форму и нормально добавлять категорию
 @login_required
 def save_record(request):
     """

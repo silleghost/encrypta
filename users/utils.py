@@ -21,9 +21,6 @@ def get_or_create_user_settings(user, **kwargs):
     return user_settings
 
 
-def update_password():
-    ...
-
 def check_password(password, encoded, hasher):
     if password is None:
         return False, False

@@ -19,7 +19,7 @@ def login(request):
         if form.is_valid():
             username = request.POST["username"]
             password = request.POST["password"]
-            # user = auth.authenticate(username=username, password=password)
+            #TODO сделать проверки для тестирования
             try:
                 user = User.objects.get(username=username)
             except User.DoesNotExist:
@@ -57,6 +57,7 @@ def registration(request):
         if form.is_valid():
             form.save()
             user = form.instance
+            get_or_create_user_settings(user)
             auth.login(request, user)
             messages.success(request, f"{user.username}, Вы успешно зарегистрировались")
             return HttpResponseRedirect(reverse("vault:vault"))

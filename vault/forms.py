@@ -4,7 +4,7 @@ from django import forms
 
 from vault.models import Records, Categories
 
-
+#TODO переделать форму на обычную
 class NewRecordForm(forms.ModelForm):
     class Meta:
         model = Records

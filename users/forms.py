@@ -18,6 +18,7 @@ class UserLoginForm(AuthenticationForm):
         fields = ["username", "password"]
 
 
+#TODO сделать свои валидаторы
 class UserRegistrationForm(UserCreationForm):
     class Meta:
         model = User
