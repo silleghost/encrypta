@@ -1,11 +1,14 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib import auth, messages
+from django.db import transaction
+from django.forms import ValidationError
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.urls import reverse
 
-from users.forms import UserLoginForm, UserRegistrationForm, UserProfileForm
-from users.models import User
+from users.forms import UserLoginForm, UserRegistrationForm, UserSettingsForm
+from users.models import User, UserSettings
+from users.utils import get_or_create_user_settings
 
 
 def login(request):
@@ -49,20 +52,33 @@ def registration(request):
 
 
 @login_required
-def profile(request):
+def settings(request):
     if request.method == "POST":
-        form = UserProfileForm(data=request.POST, instance=request.user)
+        form = UserSettingsForm(data=request.POST)
         if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(reverse("users:profile"))
+            try:
+                with transaction.atomic():
+                    user = request.user
+                    user.username = form.cleaned_data["username"]
+                    user.email = form.cleaned_data["email"]
+                    user.save()
+                    settings = get_or_create_user_settings(user=user)
+                    settings.preferred_hash_algorithm=form.cleaned_data["hash_algorithm"]
+                    settings.save()
+            except ValidationError:
+                return redirect("user:settings")
+
     else:
-        form = UserProfileForm(instance=request.user)
+        form = UserSettingsForm(initial={
+            "username": request.user.username,
+            "email": request.user.email,
+        })
 
     context = {
         "title": "Профиль",
         "form": form,
     }
-    return render(request, "users/profile.html", context)
+    return render(request, "users/settings.html", context)
 
 
 @login_required

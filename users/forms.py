@@ -33,14 +33,27 @@ class UserRegistrationForm(UserCreationForm):
     password1 = forms.CharField()
     password2 = forms.CharField()
 
+#TODO удалить форму
+# class UserProfileForm(UserChangeForm):
+#     class Meta:
+#         model = User
+#         fields = (
+#             "username",
+#             "email",
+#         )
 
-class UserProfileForm(UserChangeForm):
-    class Meta:
-        model = User
-        fields = (
-            "username",
-            "email",
-        )
+#     username = forms.CharField()
+#     email = forms.CharField()
 
+
+class UserSettingsForm(forms.Form):
     username = forms.CharField()
     email = forms.CharField()
+    hash_algorithm = forms.ChoiceField(
+        choices=[
+            ("pbkdf2_sha256", "pbkdf2"),
+            ("argon2", "argon"),
+        ]
+    )
+
+

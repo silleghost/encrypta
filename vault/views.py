@@ -77,12 +77,7 @@ def new_category(request):
             post = form.save(commit=False)
             post.user = request.user
             post.save()
-            return HttpResponseRedirect(reverse("vault:vault"))
     else:
         form = NewCategoryForm()
 
-    context = {
-        "form": form,
-    }
-
-    return render(request, "vault/vault.html", context)
+    return HttpResponseRedirect(reverse("vault:vault"))
