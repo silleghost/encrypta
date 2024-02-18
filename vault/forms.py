@@ -26,4 +26,11 @@ class NewCategoryForm(forms.ModelForm):
         model = Categories
         fields = ("name",)
 
-        name = forms.CharField()
+    name = forms.CharField()
+
+    def clean_name(self):
+        data= self.cleaned_data["name"]
+        if Categories.objects.get(name=data):
+            raise forms.ValidationError("Такая категория уже существует", code="unique")
+        
+        return data

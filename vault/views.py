@@ -10,6 +10,9 @@ from vault.models import Categories, Records
 
 @login_required
 def vault(request):
+    """
+    Возвращает все записи текущего пользователя
+    """
     records = Records.objects.filter(user=request.user)
     context = {
         "title": "Главная",
@@ -17,9 +20,12 @@ def vault(request):
     }
     return render(request, "vault/vault.html", context)
 
-
+#TODO переделать функцию
 @login_required
 def save_record(request):
+    """
+    Сохраняет или создает новую запись пользователя
+    """
     if request.method == "POST":
         if request.POST.get("id"):
             record = Records.objects.filter(user=request.user).get(
@@ -45,6 +51,9 @@ def save_record(request):
 
 @login_required
 def get_record_form(request):
+    """
+    Получает данные выбранной записи по id и отправляет их по AJAX
+    """
     record_id = request.POST.get("record_id")
     record = Records.objects.get(id=record_id)
 
@@ -61,6 +70,9 @@ def get_record_form(request):
 
 @login_required
 def delete_record(request):
+    """
+    Удаляет запись по id
+    """
     if request.method == "POST":
         record = Records.objects.filter(user=request.user).get(
             id=request.POST.get("id")
@@ -71,12 +83,16 @@ def delete_record(request):
 
 @login_required
 def new_category(request):
+    """
+    Создает новую категорию
+    """
     if request.method == "POST":
         form = NewCategoryForm(data=request.POST)
         if form.is_valid():
             post = form.save(commit=False)
             post.user = request.user
             post.save()
+        
     else:
         form = NewCategoryForm()
 

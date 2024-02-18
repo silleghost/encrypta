@@ -16,7 +16,7 @@ class UserSettings(models.Model):
     user = models.ForeignKey(
         to=User, on_delete=models.CASCADE, verbose_name="Пользователь"
     )
-    preferred_hash_algorithm = models.CharField(max_length=50)
+    preferred_hash_algorithm = models.CharField(max_length=50, verbose_name="Алгоритм хеширования")
 
     class Meta:
         db_table = "settings"

@@ -69,9 +69,11 @@ def settings(request):
                 return redirect("user:settings")
 
     else:
+        settings = get_or_create_user_settings(user=request.user)
         form = UserSettingsForm(initial={
             "username": request.user.username,
             "email": request.user.email,
+            "settings": settings,
         })
 
     context = {

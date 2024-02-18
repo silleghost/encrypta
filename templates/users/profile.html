@@ -34,8 +34,8 @@
                     Метод хеширования мастер пароля
                 </label>
                 <select name="hash_algorithm" id="id_hash_algorithm" class="form-field">
-                    <option value="pbkdf2_sha256">PBKDF2</option>
-                    <option value="argon2">argon2</option>
+                    <option value="pbkdf2_sha256" {% if form.initial.settings.preferred_hash_algorithm == "pbkdf2_sha256"%}selected{% endif %}>PBKDF2</option>
+                    <option value="argon2" {% if form.initial.settings.preferred_hash_algorithm == "argon2"%}selected{% endif %}>argon2</option>
                 </select>
             </div>
             <button type="submit" class="px-2 py-1 w-full border-2 bg-slate-500 border-transparent rounded-md hover:bg-slate-600">
