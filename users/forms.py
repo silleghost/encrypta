@@ -1,10 +1,8 @@
 from django import forms
-from django.contrib.auth.forms import (
-    AuthenticationForm,
-    UserCreationForm,
-    UserChangeForm,
-)
+from django.contrib.auth.forms import AuthenticationForm
 
+from django.contrib.auth.password_validation import validate_password
+from django.core.validators import validate_email
 
 from users.models import User
 
@@ -18,33 +16,46 @@ class UserLoginForm(AuthenticationForm):
         fields = ["username", "password"]
 
 
-#TODO сделать свои валидаторы
-class UserRegistrationForm(UserCreationForm):
-    class Meta:
-        model = User
-        fields = (
-            "username",
-            "email",
-            "password1",
-            "password2",
-        )
-
+class UserRegistrationForm(forms.Form):
     username = forms.CharField()
     email = forms.CharField()
     password1 = forms.CharField()
     password2 = forms.CharField()
 
-#TODO удалить форму
-# class UserProfileForm(UserChangeForm):
-#     class Meta:
-#         model = User
-#         fields = (
-#             "username",
-#             "email",
-#         )
+    def clean_username(self):
+        username = self.cleaned_data["username"]
+        if User.objects.filter(username__iexact=username).exists():
+            raise forms.ValidationError(
+                "Пользователь с таким именем уже существует", code="unique"
+            )
+        return username
 
-#     username = forms.CharField()
-#     email = forms.CharField()
+    def clean_email(self):
+        email = self.cleaned_data["email"]
+        try:
+            validate_email(email)
+        except:
+            raise forms.ValidationError("Неправильный email", code="invalid")
+        if User.objects.filter(email=email).exists():
+            raise forms.ValidationError(
+                "Пользователь с таким email уже существует", code="unique"
+            )
+        return email
+
+    def clean_password1(self):
+        password1 = self.cleaned_data["password1"]
+        try:
+            validate_password(password1)
+        except forms.ValidationError as error:
+            raise forms.ValidationError(error.messages)
+        return password1
+
+    def clean_password2(self):
+        password1 = self.cleaned_data.get("password1")
+        password2 = self.cleaned_data.get("password2")
+        if password1 and password2 and password1 != password2:
+            raise forms.ValidationError("Пароли не совпадают")
+        return password2
 
 
 class UserSettingsForm(forms.Form):
@@ -56,5 +67,3 @@ class UserSettingsForm(forms.Form):
             ("argon2", "argon"),
         ]
     )
-
-
