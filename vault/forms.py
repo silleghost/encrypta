@@ -3,7 +3,7 @@ from django import forms
 
 from vault.models import Records, Categories
 
-#TODO переделать форму на обычную
+
 class NewRecordForm(forms.ModelForm):
     class Meta:
         model = Records
@@ -18,6 +18,7 @@ class NewRecordForm(forms.ModelForm):
     username = forms.CharField(required=False)
     password = forms.CharField(required=False)
     url = forms.CharField(required=False)
+    
 
 
 class NewCategoryForm(forms.ModelForm):

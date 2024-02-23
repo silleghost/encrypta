@@ -1,11 +1,12 @@
 from django.http import HttpResponseRedirect, JsonResponse
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.template.loader import render_to_string
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from vault.forms import NewCategoryForm, NewRecordForm
 from django.contrib.auth.decorators import login_required
 
 from vault.models import Categories, Records
+from vault.utils import decrypt, encrypt
 
 
 @login_required
@@ -13,7 +14,17 @@ def vault(request):
     """
     Возвращает все записи текущего пользователя
     """
-    records = Records.objects.filter(user=request.user)
+    master_encryption_key = request.session.get("master-encryption-key", None)
+    if master_encryption_key:
+        master_encryption_key = master_encryption_key.encode("utf-8")
+        records = Records.objects.filter(user=request.user)
+        for record in records:
+            record.app_name = decrypt(eval(record.app_name), master_encryption_key).decode("utf-8")
+            record.username = decrypt(eval(record.username), master_encryption_key).decode("utf-8")
+            record.password = decrypt(eval(record.password), master_encryption_key).decode("utf-8")
+            record.url = decrypt(eval(record.url), master_encryption_key).decode("utf-8")
+
+
     context = {
         "title": "Главная",
         "records": records,
@@ -21,33 +32,34 @@ def vault(request):
     return render(request, "vault/vault.html", context)
 
 
-# TODO переделать функцию, используя кастомную форму и нормально добавлять категорию
 @login_required
 def save_record(request):
     """
-    Сохраняет или создает новую запись пользователя
+    Сохраняет запись в базе данных
     """
     if request.method == "POST":
-        if request.POST.get("id"):
-            record = Records.objects.filter(user=request.user).get(
-                id=request.POST.get("id")
-            )
-            record.app_name = request.POST.get("app_name")
-            record.username = request.POST.get("username")
-            record.password = request.POST.get("password")
-            record.url = request.POST.get("url")
-            record.save()
+        record_id = request.POST.get("id", None)
+        if record_id:
+            record = get_object_or_404(Records, user=request.user, id=record_id)
+            form = NewRecordForm(request.POST, instance=record)
         else:
-            form = NewRecordForm(data=request.POST)
+            form = NewRecordForm(request.POST)
+        if form.is_valid():
             post = form.save(commit=False)
             post.user = request.user
             if request.POST.get("category"):
-                post.category = Categories.objects.filter(user=request.user).get(
-                    name=request.POST["category"]
+                post.category = get_object_or_404(
+                    Categories, user=request.user, name=request.POST["category"]
                 )
+            encryption_key = request.session.get("master-encryption-key")
+            encryption_key = encryption_key.encode("utf-8")
+            post.app_name = encrypt(post.app_name, encryption_key)
+            post.username = encrypt(post.username, encryption_key)
+            post.password = encrypt(post.password, encryption_key)
+            post.url = encrypt(post.url, encryption_key)
             post.save()
-
-        return HttpResponseRedirect(reverse("vault:vault"))
+            return HttpResponseRedirect(reverse("vault:vault"))
+    return HttpResponseRedirect(reverse("vault:vault"))
 
 
 @login_required
@@ -94,7 +106,7 @@ def new_category(request):
             post.user = request.user
             post.save()
         else:
-            #TODO Здесь необходимо вернуть перерисованную форму с сообщением об ошибке
+            # TODO Здесь необходимо вернуть перерисованную форму с сообщением об ошибке
             ...
 
     else:
