@@ -15,6 +15,7 @@ def encrypt(data, key):
 
 def decrypt(data, key):
     key = key[:32]
+    data = eval(data)
     raw = b64decode(data)
     cipher = AES.new(key, AES.MODE_CBC, raw[:AES.block_size])
     return unpad(cipher.decrypt(raw[AES.block_size:]), AES.block_size)

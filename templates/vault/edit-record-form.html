@@ -16,10 +16,15 @@
                 <select id="id_category" name="category" class="form-field">
                 {% get_category_list_for_current_user user=user as Categories %}
                 {% for category in Categories %}
-                    <option value={{category.name}}>
+                    <option 
+                        {% if category.name == record.category.name %}
+                            selected
+                        {% endif %} 
+                        value={{category.name}}
+                    >
                         {{category.name}}
                     </option>
-                {% endfor %}
+               {% endfor %}
                 </select>
             </div>
         </div>
