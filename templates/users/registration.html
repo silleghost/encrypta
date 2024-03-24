@@ -1,8 +1,9 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
+<script src="{% static "deps/js/registration.js" %}"></script>
 <div class="fixed w-screen h-screen bg-slate bg-opacity-10">
-    <form action="{% url "users:registration" %}" method="post" class="mx-auto max-w-[1024px] w-full container">
+    <form action="{% url "users:registration" %}" id="registration-form" method="post" class="mx-auto max-w-[1024px] w-full container">
         {% csrf_token %}
         <div class="p-[2rem] mt-5 mx-auto flex flex-col justify-center items-center max-w-[32rem]">
             <div class="p-[1.5rem] bg-white border-gray-200 border-1 rounded-md">

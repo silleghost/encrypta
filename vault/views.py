@@ -1,3 +1,4 @@
+from django.core.cache import cache
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.template.loader import render_to_string
@@ -6,7 +7,6 @@ from vault.forms import NewCategoryForm, NewRecordForm
 from django.contrib.auth.decorators import login_required
 
 from vault.models import Categories, Records
-from vault.utils import decrypt, encrypt
 
 
 @login_required
@@ -103,6 +103,8 @@ def new_category(request):
             post = form.save(commit=False)
             post.user = request.user
             post.save()
+            cache_key = f"category_list_{request.user.id}"
+            cache.delete(cache_key)
         else:
             # TODO Здесь необходимо вернуть перерисованную форму с сообщением об ошибке
             ...

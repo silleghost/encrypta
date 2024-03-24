@@ -18,15 +18,33 @@ class UserLoginForm(AuthenticationForm):
 
 
 class UserRegistrationForm(UserCreationForm):
-
     class Meta:
         model = User
         fields = ["username", "email", "password1", "password2"]
+        # exclude = ["username", "email", "password1", "password2"]
 
     username = forms.CharField()
     email = forms.CharField()
     password1 = forms.CharField()
     password2 = forms.CharField()
+
+    def clean_username(self):
+        return self.cleaned_data["username"]
+
+    def clean_email(self):
+        return self.cleaned_data["email"]
+
+    def clean_password1(self):
+        return self.cleaned_data["password1"]
+
+    def clean_password2(self):
+        return self.cleaned_data["password2"]
+
+    def clean(self):
+        cleaned_data = super().clean()
+        self.errors.clear()
+        return cleaned_data
+    
 
     # def clean_username(self):
     #     username = self.cleaned_data["username"]
@@ -63,14 +81,7 @@ class UserRegistrationForm(UserCreationForm):
     #         raise forms.ValidationError("Пароли не совпадают")
     #     return password2
 
-    # def save(self):
-    #     username = self.cleaned_data["username"]
-    #     password = self.cleaned_data["password1"]
-    #     email = self.cleaned_data["email"]
 
-    #     hashed_password = make_password(password)
-    #     user = User(username=username, password=hashed_password, email=email)
-    #     user.save()
 
 
 class UserSettingsForm(forms.Form):

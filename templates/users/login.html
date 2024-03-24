@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+<script src="{% static "js/login.js" %}"></script>
 {% block content %}
 <div class="fixed w-screen h-screen bg-slate bg-opacity-10">
     <form action="{% url "users:login" %}" method="post" class="mx-auto max-w-[1024px] w-full container">

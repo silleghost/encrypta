@@ -14,13 +14,13 @@
 		{% tailwind_css %}
 	</head>
 	<body class="bg-gray-100">
+		<script src={% static "deps/js/jquery/jquery-3.7.0.min.js" %}></script>
+		<script src={% static "deps/js/jquery-ajax.js" %}></script>
 		<!-- Навигация -->
 		{% block navigation %}
 		{% endblock navigation %}
 		<!-- Основная часть сайта -->
 		{% block content %}
 		{% endblock content %}
-		<script src={% static "deps/js/jquery/jquery-3.7.0.min.js" %}></script>
-		<script src={% static "deps/js/jquery-ajax.js" %}></script>
 	</body>
 </html>
