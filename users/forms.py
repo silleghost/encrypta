@@ -20,13 +20,11 @@ class UserLoginForm(AuthenticationForm):
 class UserRegistrationForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ["username", "email", "password1", "password2"]
-        # exclude = ["username", "email", "password1", "password2"]
+        fields = ["username", "email", "password1"]
 
     username = forms.CharField()
     email = forms.CharField()
-    password1 = forms.CharField()
-    password2 = forms.CharField()
+    password = forms.CharField()
 
     def clean_username(self):
         return self.cleaned_data["username"]
@@ -36,9 +34,6 @@ class UserRegistrationForm(UserCreationForm):
 
     def clean_password1(self):
         return self.cleaned_data["password1"]
-
-    def clean_password2(self):
-        return self.cleaned_data["password2"]
 
     def clean(self):
         cleaned_data = super().clean()

@@ -15,11 +15,11 @@ def vault(request):
     Возвращает все записи текущего пользователя
     """
     master_encryption_key = request.session.get("master-encryption-key", None)
-    if master_encryption_key:
-        master_encryption_key = master_encryption_key.encode("utf-8")
-        records = Records.objects.filter(user=request.user)
-        for record in records:
-            record.decrypt_data(master_encryption_key)
+    records = Records.objects.filter(user=request.user)
+    # if master_encryption_key:
+    #     master_encryption_key = master_encryption_key.encode("utf-8")
+    #     for record in records:
+    #         record.decrypt_data(master_encryption_key)
 
 
     context = {
@@ -50,7 +50,7 @@ def save_record(request):
                 )
             encryption_key = request.session.get("master-encryption-key")
             encryption_key = encryption_key.encode("utf-8")
-            post.encrypt_data(encryption_key)
+            # post.encrypt_data(encryption_key)
             post.save()
             return HttpResponseRedirect(reverse("vault:vault"))
     return HttpResponseRedirect(reverse("vault:vault"))
@@ -66,7 +66,7 @@ def get_record_form(request):
 
     encryption_key = request.session.get("master-encryption-key")
     encryption_key = encryption_key.encode("utf-8")
-    record.decrypt_data(encryption_key)
+    # record.decrypt_data(encryption_key)
 
     change_form_html = render_to_string(
         "vault/edit-record-form.html", {"record": record}, request=request
