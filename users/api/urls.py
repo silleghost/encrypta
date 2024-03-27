@@ -7,10 +7,10 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 
+app_name = "users-api"
 
 urlpatterns = [
     path('', views.getRoutes),
-    path('getiv/', views.GetIVView.as_view(), name='getiv'),
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]

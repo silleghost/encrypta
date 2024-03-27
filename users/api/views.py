@@ -16,21 +16,6 @@ from users.models import User
 from .serializers import RegistrationSerializer
 
 
-class GetIVView(APIView):
-    def post(self, request):
-        username = request.data.get('username', None)
-
-        try:
-            user = User.objects.get(username=username)
-        except User.DoesNotExist:
-            return Response({'error': 'User does not exist'}, status=status.HTTP_404_NOT_FOUND)
-        
-        password_string = user.password
-        iv = password_string.split("$")[0]
-        return Response({'iv': iv}, status=status.HTTP_200_OK)
-    
-
-
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
     def get_token(cls, user):
@@ -69,3 +54,21 @@ class RegistrationAPIView(APIView):
         serializer.save()
 
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+def UserCreateView(CreateAPIView):
+    """
+    Создает нового пользователя (регистрация).
+    """
+    pass
+
+def UserLoginView(APIView):
+    """
+    Аутентифицирует пользователя и возвращает токен JWT (вход в систему).
+    """
+    pass
+
+def UserLogoutView(APIView):
+    """
+    Разлогинивает пользователя (выход из системы).
+    """
+    pass

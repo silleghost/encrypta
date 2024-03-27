@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import include, path
 
 from users import views
 
@@ -10,4 +10,5 @@ urlpatterns = [
     path("settings/", views.settings, name="settings"),
     path("logout/", views.logout, name="logout"),
     path("delete-user/", views.delete, name="delete"),
+    path("api/", include("users.api.urls", namespace="users-api")),
 ]
