@@ -83,6 +83,7 @@ SIMPLE_JWT = {
 
     "ALGORITHM": "HS256",
     "VERIFYING_KEY": "",
+    "SIGNING_KEY": SECRET_KEY, 
     "AUDIENCE": None,
     "ISSUER": None,
     "JSON_ENCODER": None,

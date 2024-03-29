@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-<script type="module" src="{% static "/deps/js/login.js" %}"></script>
+{% comment %} <script type="module" src="{% static "/deps/js/login.js" %}"></script> {% endcomment %}
 <div class="fixed w-screen h-screen bg-slate bg-opacity-10">
     <form action="{% url "users:login" %}" id="login-form" method="post" class="mx-auto max-w-[1024px] w-full container">
         {% csrf_token %}

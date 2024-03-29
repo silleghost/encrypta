@@ -1,4 +1,5 @@
 from urllib import response
+from django.contrib.auth import authenticate
 from django.http import JsonResponse
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
@@ -37,6 +38,7 @@ def getRoutes(request):
 
     return Response(routes)
 
+
 class RegistrationAPIView(APIView):
     """
     Разрешить всем пользователям (аутентифицированным и нет) доступ к данному эндпоинту.
@@ -45,7 +47,7 @@ class RegistrationAPIView(APIView):
     serializer_class = RegistrationSerializer
 
     def post(self, request):
-        user = request.data.get('user', {})
+        user = request.data
 
         # Паттерн создания сериализатора, валидации и сохранения - довольно
         # стандартный, и его можно часто увидеть в реальных проектах.
@@ -55,13 +57,8 @@ class RegistrationAPIView(APIView):
 
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-def UserCreateView(CreateAPIView):
-    """
-    Создает нового пользователя (регистрация).
-    """
-    pass
 
-def UserLoginView(APIView):
+def LoginApiView(APIView):
     """
     Аутентифицирует пользователя и возвращает токен JWT (вход в систему).
     """

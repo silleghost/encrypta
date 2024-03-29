@@ -56,8 +56,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.username
 
-    def token(self):
-        return self.__generate_jwt_token()
+    # def token(self):
+    #     return self.__generate_jwt_token()
     
     def get_full_name(self):
         return self.username
@@ -65,15 +65,15 @@ class User(AbstractBaseUser, PermissionsMixin):
     def get_short_name(self):
         return self.username
     
-    def __generate_jwt_token(self):
-        dt = datetime.now() + timedelta(days=1)
+    # def __generate_jwt_token(self):
+    #     dt = datetime.now() + timedelta(days=1)
 
-        token = jwt.encode({
-            'id': self.pk,
-            'exp': int(dt.strftime('%s'))
-        }, settings.SECRET_KEY, algorithm='HS256')
+    #     token = jwt.encode({
+    #         'id': self.pk,
+    #         'exp': int(dt.strftime('%s'))
+    #     }, settings.SECRET_KEY, algorithm='HS256')
 
-        return token
+    #     return token.decode("utf-8")
 
 
 class UserSettings(models.Model):

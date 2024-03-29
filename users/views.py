@@ -37,8 +37,8 @@ def login(request):
                     user.save()
 
                 if correct_password:
-                    # hashed_password = user.password.split("$")[-1]
-                    # request.session["master-encryption-key"] = hashed_password
+                    hashed_password = user.password.split("$")[-1]
+                    request.session["master-encryption-key"] = hashed_password
                     auth.login(request, user)
                     if request.POST.get("next", None):
                         return HttpResponseRedirect(request.POST.get("next"))
