@@ -1,6 +1,10 @@
+from multiprocessing import AuthenticationError
+import jwt
+from encrypta.settings import SECRET_KEY
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 
 from vault.api.serializers import CategoriesSerializer, RecordsSerializer
 from vault.models import Categories, Records
@@ -9,12 +13,17 @@ from vault.models import Categories, Records
 class RecordsViewSet(ModelViewSet):
     queryset = Records.objects.all()
     serializer_class = RecordsSerializer
+    permission_classes = (IsAuthenticated,)
 
     def get_queryset(self):
-        user_id = self.request.query_params.get('user_id')
-        if user_id:
+        try:
+            token = self.request.headers["Authorization"].split(" ")[1]
+            decoded_token = jwt.decode(token, SECRET_KEY, algorithms=["HS256"])
+            user_id = decoded_token["user_id"]
             return Records.objects.filter(user_id=user_id)
-        return Records.objects.all()
+        except:
+            raise AuthenticationError('Invalid token')
+        
 
 
     @action(methods=['get'], detail=False)
@@ -29,3 +38,5 @@ class RecordsViewSet(ModelViewSet):
 class CategoriesViewSet(ModelViewSet):
     queryset = Categories.objects.all()
     serializer_class = CategoriesSerializer
+
+    permission_classes = (IsAuthenticated,)

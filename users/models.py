@@ -44,6 +44,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False, verbose_name="Персонал")
     date_joined = models.DateTimeField(auto_now_add=True, null=True, verbose_name="Дата регистрации")
     last_login = models.DateTimeField(auto_now=True, null=True, verbose_name="Дата последнего входа")
+    totp_enabled = models.BooleanField(default=False, verbose_name="2FA")
+    totp_secret = models.CharField(max_length=32, null=True, blank=True, unique=True, verbose_name="2FA секретный ключ")
 
     objects = UserManager()
 
@@ -55,25 +57,13 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.username
-
-    # def token(self):
-    #     return self.__generate_jwt_token()
     
     def get_full_name(self):
         return self.username
     
     def get_short_name(self):
         return self.username
-    
-    # def __generate_jwt_token(self):
-    #     dt = datetime.now() + timedelta(days=1)
 
-    #     token = jwt.encode({
-    #         'id': self.pk,
-    #         'exp': int(dt.strftime('%s'))
-    #     }, settings.SECRET_KEY, algorithm='HS256')
-
-    #     return token.decode("utf-8")
 
 
 class UserSettings(models.Model):

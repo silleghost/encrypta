@@ -14,8 +14,8 @@ def vault(request):
     Возвращает все записи текущего пользователя
     """
     master_encryption_key = request.session.get("master-encryption-key", None)
+    records = Records.objects.filter(user=request.user)
     if master_encryption_key:
-        records = Records.objects.filter(user=request.user)
         master_encryption_key = master_encryption_key.encode("utf-8")
         for record in records:
             record.decrypt_data(master_encryption_key)
