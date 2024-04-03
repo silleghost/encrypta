@@ -1,0 +1,68 @@
+###Obtain Token
+
+POST http://127.0.0.1:8000/user/api/token/ HTTP/1.1
+content-type: application/json
+
+{
+    "username": "root",
+    "password": "root"
+}
+
+###Send TOTP code
+POST http://127.0.0.1:8000/user/api/totp/verify/ HTTP/1.1
+content-type: application/json
+
+{
+    "username": "root",
+    "password": "root",
+    "totp_code": "762602"
+}
+
+###TOTP Setup
+POST http://127.0.0.1:8000/user/api/totp/setup/ HTTP/1.1
+content-type: application/json
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEyMTM1ODQ0LCJpYXQiOjE3MTIxMzUyNDQsImp0aSI6IjU4MzQxNTFhYmIyZTQ1NGI4YmRlNmUwODQ2ZWI4ZTNkIiwidXNlcl9pZCI6MSwidXNlcm5hbWUiOiJyb290In0.mLtnatxvEOW2f1_HC0l97JS0Tt-08C4d1qa81WRFnn0
+
+{
+
+}
+
+###GET Records
+
+GET http://127.0.0.1:8000/vault/api/records
+content-type: application/json
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEyMTM2NDg2LCJpYXQiOjE3MTIxMzU4ODYsImp0aSI6IjJlZTkzOWQ5MTQ2YzRmMGU4MzUyMzc5YjY0OWU4OTIyIiwidXNlcl9pZCI6MSwidXNlcm5hbWUiOiJyb290In0.NVy0k2vPlsbwXzeplh-0XVzwFzUxikILumk-TE0lxx4
+
+{
+
+}
+
+###Add record
+POST http://127.0.0.1:8000/vault/api/records/
+content-type: application/json
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEyMTM2NDg2LCJpYXQiOjE3MTIxMzU4ODYsImp0aSI6IjJlZTkzOWQ5MTQ2YzRmMGU4MzUyMzc5YjY0OWU4OTIyIiwidXNlcl9pZCI6MSwidXNlcm5hbWUiOiJyb290In0.NVy0k2vPlsbwXzeplh-0XVzwFzUxikILumk-TE0lxx4
+
+{
+    "app_name": "test",
+    "username": "root"
+}
+
+###Change record
+PUT http://127.0.0.1:8000/vault/api/records/18/
+content-type: application/json
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEyMTM2NDg2LCJpYXQiOjE3MTIxMzU4ODYsImp0aSI6IjJlZTkzOWQ5MTQ2YzRmMGU4MzUyMzc5YjY0OWU4OTIyIiwidXNlcl9pZCI6MSwidXNlcm5hbWUiOiJyb290In0.NVy0k2vPlsbwXzeplh-0XVzwFzUxikILumk-TE0lxx4
+
+{
+    "app_name": "tester1",
+    "username": "root"
+}
+
+###Delete record
+DELETE http://127.0.0.1:8000/vault/api/records/18/
+content-type: application/json
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEyMTM2NDg2LCJpYXQiOjE3MTIxMzU4ODYsImp0aSI6IjJlZTkzOWQ5MTQ2YzRmMGU4MzUyMzc5YjY0OWU4OTIyIiwidXNlcl9pZCI6MSwidXNlcm5hbWUiOiJyb290In0.NVy0k2vPlsbwXzeplh-0XVzwFzUxikILumk-TE0lxx4
+
+{
+
+}
+
