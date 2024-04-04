@@ -71,6 +71,7 @@ class UserSettings(models.Model):
         to=User, on_delete=models.CASCADE, verbose_name="Пользователь"
     )
     preferred_hash_algorithm = models.CharField(max_length=50, verbose_name="Алгоритм хеширования")
+    totp_enabled = models.BooleanField(default=False, verbose_name="2FA")
 
     class Meta:
         db_table = "settings"
