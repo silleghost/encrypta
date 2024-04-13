@@ -15,13 +15,13 @@ content-type: application/json
 {
     "username": "user1",
     "password": "kav18032001",
-    "totp_code": "415509"
+    "totp_code": "144048"
 }
 
 ###TOTP Setup
 POST http://127.0.0.1:8000/user/api/totp/setup/ HTTP/1.1
 content-type: application/json
-Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEyMjI3NDIwLCJpYXQiOjE3MTIyMjY4MjAsImp0aSI6IjQ1YmI2ZTZiYTQyODRjZGZiOTZiMTY1Y2IxNGE1Yjg1IiwidXNlcl9pZCI6MjIsInVzZXJuYW1lIjoidXNlcjEifQ.hSpV5rhkU7uWRxSmMLvA91ThzDTtZ303CXOWyrjvYPs
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEyMzI1MTAxLCJpYXQiOjE3MTIzMjQ1MDEsImp0aSI6IjNkOWY2NDU3OGRlMTQ0YmI4MjQwNzA0YmM3MDM0ODQ4IiwidXNlcl9pZCI6MjIsInVzZXJuYW1lIjoidXNlcjEifQ.XDRGRDX-PuMCca1eCE5AFEY59HYs07RjCzXXGGKU0cI
 
 {
 
@@ -31,7 +31,7 @@ Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNj
 
 GET http://127.0.0.1:8000/vault/api/records
 content-type: application/json
-Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEyMTM3MzAzLCJpYXQiOjE3MTIxMzY3MDMsImp0aSI6IjZlOWJlNmIxOGQzYjRmYTJiMjc2YTA3MDAzNzJlNjZmIiwidXNlcl9pZCI6MSwidXNlcm5hbWUiOiJyb290In0.fVrQYrSAzmyGtiWVKsQAKL7MZhzf055kGLac5uJpBL8
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEyMzI1MTAxLCJpYXQiOjE3MTIzMjQ1MDEsImp0aSI6IjNkOWY2NDU3OGRlMTQ0YmI4MjQwNzA0YmM3MDM0ODQ4IiwidXNlcl9pZCI6MjIsInVzZXJuYW1lIjoidXNlcjEifQ.XDRGRDX-PuMCca1eCE5AFEY59HYs07RjCzXXGGKU0cI
 
 {
 
@@ -40,7 +40,7 @@ Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNj
 ###Add record
 POST http://127.0.0.1:8000/vault/api/records/
 content-type: application/json
-Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEyMTM2NDg2LCJpYXQiOjE3MTIxMzU4ODYsImp0aSI6IjJlZTkzOWQ5MTQ2YzRmMGU4MzUyMzc5YjY0OWU4OTIyIiwidXNlcl9pZCI6MSwidXNlcm5hbWUiOiJyb290In0.NVy0k2vPlsbwXzeplh-0XVzwFzUxikILumk-TE0lxx4
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEyMzI1MTAxLCJpYXQiOjE3MTIzMjQ1MDEsImp0aSI6IjNkOWY2NDU3OGRlMTQ0YmI4MjQwNzA0YmM3MDM0ODQ4IiwidXNlcl9pZCI6MjIsInVzZXJuYW1lIjoidXNlcjEifQ.XDRGRDX-PuMCca1eCE5AFEY59HYs07RjCzXXGGKU0cI
 
 {
     "app_name": "test",
@@ -50,7 +50,7 @@ Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNj
 ###Change record
 PUT http://127.0.0.1:8000/vault/api/records/18/
 content-type: application/json
-Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEyMTM2NDg2LCJpYXQiOjE3MTIxMzU4ODYsImp0aSI6IjJlZTkzOWQ5MTQ2YzRmMGU4MzUyMzc5YjY0OWU4OTIyIiwidXNlcl9pZCI6MSwidXNlcm5hbWUiOiJyb290In0.NVy0k2vPlsbwXzeplh-0XVzwFzUxikILumk-TE0lxx4
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEyMzI1MTAxLCJpYXQiOjE3MTIzMjQ1MDEsImp0aSI6IjNkOWY2NDU3OGRlMTQ0YmI4MjQwNzA0YmM3MDM0ODQ4IiwidXNlcl9pZCI6MjIsInVzZXJuYW1lIjoidXNlcjEifQ.XDRGRDX-PuMCca1eCE5AFEY59HYs07RjCzXXGGKU0cI
 
 {
     "app_name": "tester1",
@@ -69,9 +69,19 @@ Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNj
 ###GET categories
 GET http://127.0.0.1:8000/vault/api/categories/
 content-type: application/json
-Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEyMTM3NzgzLCJpYXQiOjE3MTIxMzcxODMsImp0aSI6Ijg4ZjEzYjM1MGM1YTQ3MWJiMzhiZDhhMWIxM2M5MTFiIiwidXNlcl9pZCI6MSwidXNlcm5hbWUiOiJyb290In0.x1orJ-lfG8EFKv7gOVarqkmkl3dQZ1Pqh_qYgmB6K94
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEyMzI1MTAxLCJpYXQiOjE3MTIzMjQ1MDEsImp0aSI6IjNkOWY2NDU3OGRlMTQ0YmI4MjQwNzA0YmM3MDM0ODQ4IiwidXNlcl9pZCI6MjIsInVzZXJuYW1lIjoidXNlcjEifQ.XDRGRDX-PuMCca1eCE5AFEY59HYs07RjCzXXGGKU0cI
 
 {
 
+}
+
+
+###ADD categories
+POST http://127.0.0.1:8000/vault/api/categories/
+content-type: application/json
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEyMzI1MTAxLCJpYXQiOjE3MTIzMjQ1MDEsImp0aSI6IjNkOWY2NDU3OGRlMTQ0YmI4MjQwNzA0YmM3MDM0ODQ4IiwidXNlcl9pZCI6MjIsInVzZXJuYW1lIjoidXNlcjEifQ.XDRGRDX-PuMCca1eCE5AFEY59HYs07RjCzXXGGKU0cI
+
+{
+    "name": "category1"
 }
 

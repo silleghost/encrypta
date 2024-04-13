@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'tailwind',
     'theme',
     'django_browser_reload',
+    "corsheaders",
 
     'rest_framework',
     'rest_framework_simplejwt',
@@ -135,6 +136,9 @@ MIDDLEWARE = [
 
     # 'debug_toolbar.middleware.DebugToolbarMiddleware',
     "django_browser_reload.middleware.BrowserReloadMiddleware",
+
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
 ]
 
 ROOT_URLCONF = 'encrypta.urls'
@@ -230,3 +234,4 @@ AUTH_USER_MODEL = 'users.User'
 LOGIN_URL = '/user/login/'
 
 
+CORS_ALLOW_ALL_ORIGINS = True
