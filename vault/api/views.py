@@ -17,23 +17,23 @@ class RecordsViewSet(ModelViewSet):
             token = self.request.headers["Authorization"].split(" ")[1]
             decoded_token = jwt.decode(token, SECRET_KEY, algorithms=["HS256"])
             user_id = decoded_token["user_id"]
-            return Records.objects.filter(user_id=user_id)
+            user_queryset = Records.objects.filter(user_id=user_id)
+            return user_queryset
         except:
-            return Response({'error': 'Недействительный токен'})
-        
+            # return Response({"error": "Недействительный токен"})
+            return Records.objects.none()
 
-
-    @action(methods=['get'], detail=False)
+    @action(methods=["get"], detail=False)
     def categories(self, request):
         try:
-            token = self.request.headers['Authorization'].split()[1]
+            token = self.request.headers["Authorization"].split()[1]
             payload = jwt.decode(token, SECRET_KEY, algorithms=["HS256"])
-            user_id = payload['user_id']
+            user_id = payload["user_id"]
         except jwt.exceptions.DecodeError:
-            return Response({'error': 'Недействительный токен'})
+            return Response({"error": "Недействительный токен"})
         cats = Categories.objects.filter(user_id=user_id)
-        return Response({'cats': [c.name for c in cats]})
-    
+        return Response({"cats": [c.name for c in cats]})
+
 
 class CategoriesViewSet(ModelViewSet):
     queryset = Categories.objects.all()
@@ -46,5 +46,4 @@ class CategoriesViewSet(ModelViewSet):
             user_id = decoded_token["user_id"]
             return Categories.objects.filter(user_id=user_id)
         except:
-            return Response({'error': 'Недействительный токен'})
-
+            return Response({"error": "Недействительный токен"})

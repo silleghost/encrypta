@@ -46,7 +46,7 @@ class CustomTokenObtainPairView(TokenObtainPairView):
             else:
                 token = serializer.get_token(user)
                 return Response(
-                    {"access_token": str(token.access_token), "refresh_token": str(token)}, status=status.HTTP_200_OK
+                    {"access": str(token.access_token), "refresh": str(token)}, status=status.HTTP_200_OK
                 )
 
 
