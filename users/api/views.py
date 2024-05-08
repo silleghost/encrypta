@@ -37,17 +37,29 @@ class CustomTokenObtainPairView(TokenObtainPairView):
 
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
-
         if serializer.is_valid(raise_exception=True):
             user = serializer.user
             if user.totp_enabled:
-                # request.session['totp_login'] = True
-                return Response({"message": "Пожалуйста введите TOTP код"})
+                totp_code = request.data.get("totp_code", None)
+                if totp_code and verify_totp_code(totp_code, user.totp_secret):
+                    token = serializer.get_token(user)
+                    return Response(
+                        {"access": str(token.access_token), "refresh": str(token)},
+                        status=status.HTTP_200_OK,
+                    )
+                else:
+                    return Response(
+                        {"error": "Введите правильный TOTP код"},
+                        status=status.HTTP_401_UNAUTHORIZED,
+                    )
             else:
                 token = serializer.get_token(user)
                 return Response(
-                    {"access": str(token.access_token), "refresh": str(token)}, status=status.HTTP_200_OK
+                    {"access": str(token.access_token), "refresh": str(token)},
+                    status=status.HTTP_200_OK,
                 )
+        else:
+            return Response(serializer.errors, status=status.HTTP_401_UNAUTHORIZED)
 
 
 class RegistrationAPIView(APIView):
@@ -101,33 +113,33 @@ class TotpSetupView(APIView):
             )
 
 
-class TotpVerifyView(APIView):
-    permission_classes = (AllowAny,)
+# class TotpVerifyView(APIView):
+#     permission_classes = (AllowAny,)
 
-    def post(self, request):
-        totp_code = request.data.get("totp_code")
-        username = request.data.get("username")
+#     def post(self, request):
+#         totp_code = request.data.get("totp_code")
+#         username = request.data.get("username")
 
-        try:
-            user = User.objects.get(username=username)
-        except User.DoesNotExist:
-            return Response(
-                {"error": "Некорректный логин"}, status=status.HTTP_404_NOT_FOUND
-            )
+#         try:
+#             user = User.objects.get(username=username)
+#         except User.DoesNotExist:
+#             return Response(
+#                 {"error": "Некорректный логин"}, status=status.HTTP_404_NOT_FOUND
+#             )
 
-        if not user.totp_enabled:
-            return Response(
-                {"error": "TOTP верификация не установлена"},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
+#         if not user.totp_enabled:
+#             return Response(
+#                 {"error": "TOTP верификация не установлена"},
+#                 status=status.HTTP_400_BAD_REQUEST,
+#             )
 
-        if verify_totp_code(totp_code, user.totp_secret):
-            serializer = MyTokenObtainPairSerializer()
-            token = serializer.get_token(user)
-            return Response(
-                {"access_token": str(token.access_token), "refresh_token": str(token)}
-            )
-        else:
-            return Response(
-                {"error": "Неправильный TOTP код"}, status=status.HTTP_400_BAD_REQUEST
-            )
+#         if verify_totp_code(totp_code, user.totp_secret):
+#             serializer = MyTokenObtainPairSerializer()
+#             token = serializer.get_token(user)
+#             return Response(
+#                 {"access_token": str(token.access_token), "refresh_token": str(token)}
+#             )
+#         else:
+#             return Response(
+#                 {"error": "Неправильный TOTP код"}, status=status.HTTP_400_BAD_REQUEST
+#             )

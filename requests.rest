@@ -1,6 +1,6 @@
 ###Obtain Token
 
-POST http://127.0.0.1:8000/user/api/token/ HTTP/1.1
+POST http://127.0.0.1:8000/user/api/login/ HTTP/1.1
 content-type: application/json
 
 {
@@ -9,19 +9,19 @@ content-type: application/json
 }
 
 ###Send TOTP code
-POST http://127.0.0.1:8000/user/api/totp/verify/ HTTP/1.1
+POST http://127.0.0.1:8000/user/api/login/ HTTP/1.1
 content-type: application/json
 
 {
-    "username": "user1",
-    "password": "kav18032001",
-    "totp_code": "144048"
+    "username": "root",
+    "password": "root",
+    "totp_code": "291577"
 }
 
 ###TOTP Setup
 POST http://127.0.0.1:8000/user/api/totp/setup/ HTTP/1.1
 content-type: application/json
-Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEyMzI1MTAxLCJpYXQiOjE3MTIzMjQ1MDEsImp0aSI6IjNkOWY2NDU3OGRlMTQ0YmI4MjQwNzA0YmM3MDM0ODQ4IiwidXNlcl9pZCI6MjIsInVzZXJuYW1lIjoidXNlcjEifQ.XDRGRDX-PuMCca1eCE5AFEY59HYs07RjCzXXGGKU0cI
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE1MTc3ODMzLCJpYXQiOjE3MTUxNzcyMzMsImp0aSI6IjRlZjEyYTcxZmNmMzQ0MTNhMDBlMzJkYzM5N2ZjYzJiIiwidXNlcl9pZCI6MSwidXNlcm5hbWUiOiJyb290In0.o17nGOHdyvCDpXhMx294kfoPKDPLSb7ybkoqk1bN8qg
 
 {
 

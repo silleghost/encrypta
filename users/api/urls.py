@@ -5,7 +5,7 @@ from users.api.views import (
     CustomTokenObtainPairView,
     RegistrationAPIView,
     TotpSetupView,
-    TotpVerifyView,
+    # TotpVerifyView,
     logout,
 )
 
@@ -17,6 +17,6 @@ urlpatterns = [
     path("login/", CustomTokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     path("totp/setup/", TotpSetupView.as_view(), name="totp_setup"),
-    path("totp/verify/", TotpVerifyView.as_view(), name="verify_totp"),
+    # path("totp/verify/", TotpVerifyView.as_view(), name="verify_totp"),
     path("logout/", logout, name="logout"),
 ]
