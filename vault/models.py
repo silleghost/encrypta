@@ -4,6 +4,7 @@ from django.db import models
 from users.models import User
 from vault.utils import decrypt, encrypt
 
+from .validators import latin_alphabet_regex
 
 class Categories(models.Model):
     name = models.CharField(
@@ -22,14 +23,16 @@ class Categories(models.Model):
     def __str__(self):
         return f"{self.name} | {self.user.username}"
 
-#TODO изменить представление данных в binary
+
 class Records(models.Model):
     # app_name = models.CharField(max_length=150, verbose_name="Название приложения")
     app_name = models.CharField(max_length=150, verbose_name="Название приложения")
     username = models.CharField(
-        max_length=150, null=True, verbose_name="Имя пользователя"
+        max_length=150, null=True, blank=True, verbose_name="Имя пользователя"
     )
-    password = models.CharField(max_length=300, null=True, verbose_name="Пароль")
+    password = models.CharField(
+        max_length=300, null=True, blank=True, verbose_name="Пароль"
+    )
     favicon = models.ImageField(
         upload_to="favicon_images",
         blank=True,
@@ -52,6 +55,14 @@ class Records(models.Model):
     )
     lastmodified_date = models.DateTimeField(
         auto_now=True, null=True, verbose_name="Дата последнего изменения"
+    )
+    totp_secret = models.CharField(
+        max_length=32,
+        null=True,
+        blank=True,
+        unique=True,
+        verbose_name="2FA секретный ключ",
+        validators=[latin_alphabet_regex],
     )
 
     class Meta:

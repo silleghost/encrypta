@@ -15,8 +15,9 @@ content-type: application/json
 {
     "username": "root",
     "password": "root",
-    "totp_code": "291577"
+    "totp_code": "826110"
 }
+
 
 ###TOTP Setup
 POST http://127.0.0.1:8000/user/api/totp/setup/ HTTP/1.1
@@ -29,9 +30,9 @@ Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNj
 
 ###GET Records
 
-GET http://127.0.0.1:8000/vault/api/records
+GET http://127.0.0.1:8000/vault/api/records/
 content-type: application/json
-Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEzMTE0MDA1LCJpYXQiOjE3MTMxMTM0MDUsImp0aSI6IjNkZGVhZTBhMDhhZDQ3MDA5ZDQzMGYwNGUwZDU1MGE2IiwidXNlcl9pZCI6MSwidXNlcm5hbWUiOiJyb290In0.DpZXCdVSNvoEcrmpe2i9VfhfUJeFeW_EyFdMRPKRe8s
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE3NTcwMTA5LCJpYXQiOjE3MTc1Njk1MDIsImp0aSI6IjNmZTgzYjFlODNiMDRjZTk5YmM1ODhhNjZmYTAxODgwIiwidXNlcl9pZCI6MjIsInVzZXJuYW1lIjoicm9vdCJ9.PPR_Y-HJkQJAHfzmDkFugteLs5A-NHuFnor4lwSPnOM
 
 {
 
@@ -40,27 +41,26 @@ Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNj
 ###Add record
 POST http://127.0.0.1:8000/vault/api/records/
 content-type: application/json
-Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEzMTE0MDA1LCJpYXQiOjE3MTMxMTM0MDUsImp0aSI6IjNkZGVhZTBhMDhhZDQ3MDA5ZDQzMGYwNGUwZDU1MGE2IiwidXNlcl9pZCI6MSwidXNlcm5hbWUiOiJyb290In0.DpZXCdVSNvoEcrmpe2i9VfhfUJeFeW_EyFdMRPKRe8s
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE3NTcwMTA5LCJpYXQiOjE3MTc1Njk1MDIsImp0aSI6IjNmZTgzYjFlODNiMDRjZTk5YmM1ODhhNjZmYTAxODgwIiwidXNlcl9pZCI6MjIsInVzZXJuYW1lIjoicm9vdCJ9.PPR_Y-HJkQJAHfzmDkFugteLs5A-NHuFnor4lwSPnOM
 
-{
-    "app_name": "test",
-    "username": "root"
-}
+{"app_name":"1234","category":"","username":"2","password":"2","url":""}
 
 ###Change record
-PUT http://127.0.0.1:8000/vault/api/records/18/
+    PUT http://127.0.0.1:8000/vault/api/records/125/
 content-type: application/json
-Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEyMzI1MTAxLCJpYXQiOjE3MTIzMjQ1MDEsImp0aSI6IjNkOWY2NDU3OGRlMTQ0YmI4MjQwNzA0YmM3MDM0ODQ4IiwidXNlcl9pZCI6MjIsInVzZXJuYW1lIjoidXNlcjEifQ.XDRGRDX-PuMCca1eCE5AFEY59HYs07RjCzXXGGKU0cI
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE3NTcwMTA5LCJpYXQiOjE3MTc1Njk1MDIsImp0aSI6IjNmZTgzYjFlODNiMDRjZTk5YmM1ODhhNjZmYTAxODgwIiwidXNlcl9pZCI6MjIsInVzZXJuYW1lIjoicm9vdCJ9.PPR_Y-HJkQJAHfzmDkFugteLs5A-NHuFnor4lwSPnOM
 
 {
     "app_name": "tester1",
-    "username": "root"
+    "username": "root",
+    "totp_secret": "123"
+    
 }
 
 ###Delete record
-DELETE http://127.0.0.1:8000/vault/api/records/18/
+DELETE http://127.0.0.1:8000/vault/api/records/48/
 content-type: application/json
-Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEyMTM2NDg2LCJpYXQiOjE3MTIxMzU4ODYsImp0aSI6IjJlZTkzOWQ5MTQ2YzRmMGU4MzUyMzc5YjY0OWU4OTIyIiwidXNlcl9pZCI6MSwidXNlcm5hbWUiOiJyb290In0.NVy0k2vPlsbwXzeplh-0XVzwFzUxikILumk-TE0lxx4
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE3MDk1MjA4LCJpYXQiOjE3MTcwOTQzNjIsImp0aSI6IjZiNmFmN2M1NjJiZDQyMjdiZmE0Mjc3ODNjZDMxOTkzIiwidXNlcl9pZCI6MjIsInVzZXJuYW1lIjoicm9vdCJ9._QmemZM1HcbD5shpdNuZY45kLQOK49zgSP6e-AOMWGk
 
 {
 
@@ -69,7 +69,7 @@ Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNj
 ###GET categories
 GET http://127.0.0.1:8000/vault/api/categories/
 content-type: application/json
-Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEyMzI1MTAxLCJpYXQiOjE3MTIzMjQ1MDEsImp0aSI6IjNkOWY2NDU3OGRlMTQ0YmI4MjQwNzA0YmM3MDM0ODQ4IiwidXNlcl9pZCI6MjIsInVzZXJuYW1lIjoidXNlcjEifQ.XDRGRDX-PuMCca1eCE5AFEY59HYs07RjCzXXGGKU0cI
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE3MTU5NDc3LCJpYXQiOjE3MTcxNTg4NzQsImp0aSI6ImJiNmRiZTEyYzM2ZTRiOGM5NWZhNDQxZGYwOTE5MDk3IiwidXNlcl9pZCI6MjIsInVzZXJuYW1lIjoicm9vdCJ9.wI5OWe0SdHuqmIqiV4ewNgl7cZNIMEWG-MZrtwZhxb8
 
 {
 
@@ -79,9 +79,9 @@ Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNj
 ###ADD categories
 POST http://127.0.0.1:8000/vault/api/categories/
 content-type: application/json
-Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEyMzI1MTAxLCJpYXQiOjE3MTIzMjQ1MDEsImp0aSI6IjNkOWY2NDU3OGRlMTQ0YmI4MjQwNzA0YmM3MDM0ODQ4IiwidXNlcl9pZCI6MjIsInVzZXJuYW1lIjoidXNlcjEifQ.XDRGRDX-PuMCca1eCE5AFEY59HYs07RjCzXXGGKU0cI
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE3MTU5NDc3LCJpYXQiOjE3MTcxNTg4NzQsImp0aSI6ImJiNmRiZTEyYzM2ZTRiOGM5NWZhNDQxZGYwOTE5MDk3IiwidXNlcl9pZCI6MjIsInVzZXJuYW1lIjoicm9vdCJ9.wI5OWe0SdHuqmIqiV4ewNgl7cZNIMEWG-MZrtwZhxb8
 
 {
-    "name": "category1"
+    "name": "category3"
 }
 

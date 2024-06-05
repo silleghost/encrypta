@@ -17,7 +17,7 @@ class RecordsViewSet(ModelViewSet):
             token = self.request.headers["Authorization"].split(" ")[1]
             decoded_token = jwt.decode(token, SECRET_KEY, algorithms=["HS256"])
             user_id = decoded_token["user_id"]
-            user_queryset = Records.objects.filter(user_id=user_id)
+            user_queryset = Records.objects.filter(user_id=user_id).order_by('app_name')
             return user_queryset
         except:
             # return Response({"error": "Недействительный токен"})

@@ -49,7 +49,7 @@ class CustomTokenObtainPairView(TokenObtainPairView):
                     )
                 else:
                     return Response(
-                        {"error": "Введите правильный TOTP код"},
+                        {"message": "Введите TOTP код"},
                         status=status.HTTP_401_UNAUTHORIZED,
                     )
             else:
